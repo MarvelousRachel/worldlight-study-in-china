@@ -135,32 +135,6 @@
 
   void loadFlyersFromManifest();
 
-  // Flyer filters
-  const filterButtons = document.querySelectorAll("[data-flyer-filter]");
-  const flyerCards = document.querySelectorAll(".flyer-grid a.flyer");
-
-  const setFlyerFilter = (filter) => {
-    flyerCards.forEach((card) => {
-      const tags = (card.getAttribute("data-flyer-tags") || "").split(/\s+/).filter(Boolean);
-      const match = filter === "all" ? true : tags.includes(filter);
-      card.classList.toggle("is-hidden", !match);
-    });
-
-    filterButtons.forEach((btn) => {
-      const isActive = btn.getAttribute("data-flyer-filter") === filter;
-      btn.setAttribute("aria-pressed", String(isActive));
-    });
-  };
-
-  if (filterButtons.length && flyerCards.length) {
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const filter = btn.getAttribute("data-flyer-filter") || "all";
-        setFlyerFilter(filter);
-      });
-    });
-  }
-
   // Flyers lightbox
   const lightbox = $("#flyer-lightbox");
   const lightboxImg = $("#flyer-lightbox-img");

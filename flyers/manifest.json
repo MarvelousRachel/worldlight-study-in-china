@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "file": "Application material different color.jpg",
+      "title": "Application material (different color)",
+      "tags": ["documents", "admissions"]
+    },
+    {
+      "file": "Application materials.jpg",
+      "title": "Application materials",
+      "tags": ["documents", "admissions"]
+    },
+    {
+      "file": "Chinese language opportunity.jpg",
+      "title": "Chinese language opportunity",
+  "tags": ["intake", "scholarship"]
+    },
+    {
+      "file": "Clinical medicine opportunity.jpg",
+      "title": "Clinical medicine opportunity",
+  "tags": ["scholarship", "admissions"]
+    },
+    {
+      "file": "ENglish globall process with us.jpg",
+      "title": "English global process with us",
+  "tags": ["admissions"]
+    },
+    {
+      "file": "English detail process.jpg",
+      "title": "English detail process",
+  "tags": ["admissions"]
+    },
+    {
+      "file": "Flyer for promotion.jpg",
+      "title": "Flyer for promotion",
+  "tags": ["admissions"]
+    },
+    {
+      "file": "French global process.jpg",
+      "title": "French global process",
+  "tags": ["admissions"]
+    },
+    {
+      "file": "French process and why to choose us.jpg",
+      "title": "French process and why to choose us",
+  "tags": ["admissions"]
+    },
+    {
+      "file": "Promotionnal image.jpg",
+      "title": "Promotional image",
+  "tags": ["admissions"]
+    }
+  ]
+}

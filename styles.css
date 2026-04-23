@@ -786,12 +786,42 @@ textarea:focus {
 }
 
 /* ── Video section ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.video-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.video-label {
+  margin: 0;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--brand);
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--line);
+}
+
 .video-wrap {
   max-width: 760px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: var(--radius);
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+
+.video-card .video-wrap {
+  max-width: 100%;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .video-wrap video {

@@ -425,6 +425,30 @@ a:hover {
   align-items: start;
 }
 
+/* Give the homepage banner more room on big screens by moving the right rail below */
+@media (min-width: 1100px) {
+  .market-grid {
+    grid-template-columns: 320px minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar main"
+      ". side";
+  }
+
+  .market-grid .sidebar {
+    grid-area: sidebar;
+  }
+
+  .market-grid .market-main {
+    grid-area: main;
+  }
+
+  .market-grid .market-side {
+    grid-area: side;
+    position: static;
+  margin-top: 16px;
+  }
+}
+
 .sidebar,
 .market-side .side-card {
   background: var(--panel);

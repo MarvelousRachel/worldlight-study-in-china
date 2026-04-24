@@ -37,6 +37,27 @@
     window.location.href = url;
   };
 
+  const appendToMessageBox = (text) => {
+    const box = document.querySelector("#message");
+    if (!(box instanceof HTMLTextAreaElement)) return;
+    const existing = String(box.value || "").trim();
+    const next = existing ? `${existing}\n\n${text}` : text;
+    box.value = next;
+  };
+
+  // If arriving with ?university=... from universities.html, prefill the message.
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const uni = params.get("university");
+    const city = params.get("city");
+    if (uni) {
+      const line = [`University: ${uni}`, city ? `City: ${city}` : ""].filter(Boolean).join(" | ");
+      appendToMessageBox(`Hello WorldLight, I want to apply to: ${line}`);
+    }
+  } catch {
+    // ignore
+  }
+
   // --- Homepage search (static, client-side) ---
   const searchInput = $("#site-search");
   const searchBtn = document.querySelector("[data-search-trigger]");
@@ -68,6 +89,170 @@
   if (searchBtn) {
     searchBtn.addEventListener("click", applyHomepageSearch);
   }
+
+  // --- Universities page (filters + search history) ---
+  const uniSearch = $("#uni-search");
+  const uniSearchTrigger = document.querySelector("[data-uni-search-trigger]");
+  const uniNameInput = $("#uni-name");
+  const uniNameGo = document.querySelector("[data-uni-name-search]");
+  const uniTagSelect = $("#uni-tags");
+  const uniCityInput = $("#uni-city");
+  const uniRows = document.querySelectorAll("[data-uni]");
+  const uniHistoryEl = $("#uni-history");
+  const uniHistoryClear = document.querySelector("[data-uni-history-clear]");
+  const uniQuickButtons = document.querySelectorAll("[data-uni-quick]");
+
+  const UNI_HISTORY_KEY = "worldlight_uni_search_history_v1";
+
+  const readUniHistory = () => {
+    try {
+      const raw = localStorage.getItem(UNI_HISTORY_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const writeUniHistory = (list) => {
+    try {
+      localStorage.setItem(UNI_HISTORY_KEY, JSON.stringify(list.slice(0, 10)));
+    } catch {
+      // ignore
+    }
+  };
+
+  const addUniHistoryItem = (value) => {
+    const v = normalize(value);
+    if (!v) return;
+    const existing = readUniHistory();
+    const next = [v, ...existing.filter((x) => x !== v)];
+    writeUniHistory(next);
+    renderUniHistory();
+  };
+
+  const renderUniHistory = () => {
+    if (!uniHistoryEl) return;
+    const items = readUniHistory();
+    uniHistoryEl.innerHTML = "";
+
+    if (!items.length) {
+      const p = document.createElement("p");
+      p.className = "muted";
+      p.style.margin = "0";
+      p.textContent = "No searches yet.";
+      uniHistoryEl.appendChild(p);
+      return;
+    }
+
+    items.forEach((q) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = q;
+      btn.addEventListener("click", () => {
+        if (uniSearch) uniSearch.value = q;
+        if (uniNameInput) uniNameInput.value = q;
+        applyUniversityFilters();
+      });
+      uniHistoryEl.appendChild(btn);
+    });
+  };
+
+  const getUniversityFilterState = () => {
+    const q = normalize((uniSearch && uniSearch.value) || (uniNameInput && uniNameInput.value) || "");
+    const city = normalize(uniCityInput?.value || "");
+    const tag = normalize(uniTagSelect?.value || "");
+    return { q, city, tag };
+  };
+
+  const applyUniversityFilters = () => {
+    if (!uniRows.length) return;
+
+    const { q, city, tag } = getUniversityFilterState();
+
+    uniRows.forEach((row) => {
+      const name = normalize(row.getAttribute("data-name") || row.textContent || "");
+      const rowCity = normalize(row.getAttribute("data-city") || "");
+      const rowProv = normalize(row.getAttribute("data-province") || "");
+      const rowTags = normalize(row.getAttribute("data-tags") || "");
+
+      const matchesQ = !q || name.includes(q) || rowCity.includes(q) || rowProv.includes(q) || rowTags.includes(q);
+      const matchesCity = !city || rowCity.includes(city) || rowProv.includes(city);
+      const matchesTag = !tag || rowTags.split(/\s+/).includes(tag);
+
+      row.style.display = matchesQ && matchesCity && matchesTag ? "" : "none";
+    });
+
+    if (q) addUniHistoryItem(q);
+  };
+
+  // Wire universities inputs
+  if (uniSearch) {
+    uniSearch.addEventListener("input", applyUniversityFilters);
+    uniSearch.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyUniversityFilters();
+    });
+  }
+
+  if (uniSearchTrigger) uniSearchTrigger.addEventListener("click", applyUniversityFilters);
+
+  if (uniNameInput) {
+    uniNameInput.addEventListener("input", applyUniversityFilters);
+    uniNameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyUniversityFilters();
+    });
+  }
+
+  if (uniNameGo) uniNameGo.addEventListener("click", applyUniversityFilters);
+  if (uniCityInput) uniCityInput.addEventListener("input", applyUniversityFilters);
+  if (uniTagSelect) uniTagSelect.addEventListener("change", applyUniversityFilters);
+
+  if (uniHistoryClear) {
+    uniHistoryClear.addEventListener("click", () => {
+      writeUniHistory([]);
+      renderUniHistory();
+    });
+  }
+
+  if (uniQuickButtons.length) {
+    uniQuickButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const v = btn.getAttribute("data-uni-quick") || "";
+        if (uniTagSelect) uniTagSelect.value = v;
+        applyUniversityFilters();
+      });
+    });
+  }
+
+  // Prefill contact message when clicking "View details"
+  const viewDetailsLinks = document.querySelectorAll("[data-view-details]");
+  if (viewDetailsLinks.length) {
+    viewDetailsLinks.forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const target = e.currentTarget;
+        if (!(target instanceof HTMLElement)) return;
+        const container = target.closest("[data-uni]");
+        const uniName = container?.getAttribute("data-name") || "";
+        const city = container?.getAttribute("data-city") || "";
+        const province = container?.getAttribute("data-province") || "";
+
+        // Store a draft message so index.html can pick it up if implemented later.
+        // For now, we at least add to search history.
+        addUniHistoryItem(uniName);
+
+        // If the universities page has a querystring to index, append it.
+        if (target instanceof HTMLAnchorElement && uniName) {
+          const url = new URL(target.href, window.location.href);
+          url.searchParams.set("university", uniName);
+          if (city || province) url.searchParams.set("city", [city, province].filter(Boolean).join(", "));
+          target.href = url.toString();
+        }
+      });
+    });
+  }
+
+  // Initial render for universities page
+  if (uniHistoryEl) renderUniHistory();
 
   // --- Flyers: render from manifest.json so adding flyers is easy ---
   const flyerGrid = $("#flyer-grid");

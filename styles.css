@@ -636,6 +636,67 @@ a:hover {
   align-items: start;
 }
 
+.uni-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(30, 34, 45, 0.12);
+  border-radius: 14px;
+  padding: 6px;
+}
+
+.detail-hero-title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.detail-cover {
+  margin-top: 14px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(30, 34, 45, 0.12);
+  background: #fff;
+}
+
+.detail-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: cover;
+}
+
+.uni-row-main {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.uni-row-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(30, 34, 45, 0.12);
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.uni-row-cover {
+  width: 118px;
+  height: 72px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(30, 34, 45, 0.12);
+}
+
+.uni-row-text {
+  min-width: 0;
+}
+
 .detail-hero-card {
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--line);

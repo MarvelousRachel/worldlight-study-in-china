@@ -264,10 +264,13 @@
         const isActive = b.getAttribute("data-tab") === tab;
         b.classList.toggle("active", isActive);
         b.setAttribute("aria-selected", String(isActive));
+  // Ensure focus can move only to active tab when tabs are buttons/links.
+  b.setAttribute("tabindex", isActive ? "0" : "-1");
       });
       tabPanels.forEach((p) => {
         const isActive = p.getAttribute("data-panel") === tab;
         p.classList.toggle("active", isActive);
+  p.setAttribute("aria-hidden", String(!isActive));
       });
     };
 
@@ -276,7 +279,36 @@
         const tab = btn.getAttribute("data-tab") || "";
         if (tab) setActiveTab(tab);
       });
+
+      btn.addEventListener("keydown", (e) => {
+        const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+        if (!keys.includes(e.key)) return;
+        e.preventDefault();
+
+        const list = Array.from(tabButtons);
+        const idx = list.indexOf(btn);
+        if (idx < 0) return;
+
+        const nextIdx = (() => {
+          if (e.key === "Home") return 0;
+          if (e.key === "End") return list.length - 1;
+          if (e.key === "ArrowLeft") return (idx - 1 + list.length) % list.length;
+          return (idx + 1) % list.length;
+        })();
+
+        const nextBtn = list[nextIdx];
+        nextBtn.focus();
+        const tab = nextBtn.getAttribute("data-tab") || "";
+        if (tab) setActiveTab(tab);
+      });
     });
+
+    // Ensure an initial active tab state is ARIA-consistent.
+    const initial =
+      Array.from(tabButtons).find((b) => b.classList.contains("active"))?.getAttribute("data-tab") ||
+      tabButtons[0]?.getAttribute("data-tab") ||
+      "";
+    if (initial) setActiveTab(initial);
   }
 
   // --- Flyers: render from manifest.json so adding flyers is easy ---
@@ -425,18 +457,6 @@
     });
   }
 
-  const flyerLinks = document.querySelectorAll(".flyer-grid a.flyer");
-  if (flyerLinks.length && lightbox) {
-    flyerLinks.forEach((a) => {
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const src = a.getAttribute("data-flyer-src") || a.getAttribute("href") || "";
-        const name = a.getAttribute("data-flyer-name") || "Flyer";
-        openLightbox({ src, name });
-      });
-    });
-  }
-
   // Handle flyers added dynamically after manifest load.
   if (flyerGrid && lightbox) {
     flyerGrid.addEventListener("click", (e) => {
@@ -492,6 +512,22 @@
         links.classList.remove("open");
         toggle.setAttribute("aria-expanded", "false");
       }
+    });
+
+    const closeMenu = () => {
+      links.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    // Close on Escape for keyboard users.
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    // If switching to desktop width, force-close the mobile menu.
+    // (CSS shows .nav-toggle only under 860px.)
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 860) closeMenu();
     });
   }
 

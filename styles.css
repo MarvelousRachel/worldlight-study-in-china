@@ -415,13 +415,13 @@ a:hover {
 }
 
 .market {
-  padding: 18px 0 10px;
+  padding: 24px 0 14px;
 }
 
 .market-grid {
   display: grid;
-  grid-template-columns: 260px 1fr 260px;
-  gap: 16px;
+  grid-template-columns: 300px minmax(0, 1fr) 300px;
+  gap: 18px;
   align-items: start;
 }
 
@@ -473,7 +473,7 @@ a:hover {
     radial-gradient(700px 340px at 90% 0%, rgba(249, 115, 22, 0.2), transparent 62%),
     linear-gradient(135deg, rgba(31, 77, 255, 0.85), rgba(249, 115, 22, 0.7));
   color: rgba(255, 255, 255, 0.94);
-  padding: 18px;
+  padding: 22px;
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 14px;
@@ -486,6 +486,15 @@ a:hover {
 
 .banner h1 {
   margin-top: 10px;
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 2.6vw, 2.6rem);
+  line-height: 1.12;
+}
+
+.banner .lead {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 52ch;
 }
 
 .banner-stats {

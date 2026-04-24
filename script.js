@@ -50,9 +50,17 @@
     const params = new URLSearchParams(window.location.search);
     const uni = params.get("university");
     const city = params.get("city");
+    const programId = params.get("programId");
+    const program = params.get("program");
     if (uni) {
       const line = [`University: ${uni}`, city ? `City: ${city}` : ""].filter(Boolean).join(" | ");
       appendToMessageBox(`Hello WorldLight, I want to apply to: ${line}`);
+    }
+    if (programId || program) {
+      const line = [`Program: ${program || ""}`, programId ? `Program ID: ${programId}` : "", city ? `City: ${city}` : ""]
+        .filter(Boolean)
+        .join(" | ");
+      appendToMessageBox(`Hello WorldLight, I want to apply for: ${line}`);
     }
   } catch {
     // ignore
@@ -253,6 +261,183 @@
 
   // Initial render for universities page
   if (uniHistoryEl) renderUniHistory();
+
+  // --- Scholarships page (filters + search history) ---
+  const schSearch = $("#scholarship-search");
+  const schSearchBtn = document.querySelector("[data-scholarship-search]");
+  const schField = $("#sch-field");
+  const schDegree = $("#sch-degree");
+  const schLanguage = $("#sch-language");
+  const schIntake = $("#sch-intake");
+  const schType = $("#sch-type");
+  const schCity = $("#sch-city");
+  const schRows = document.querySelectorAll("[data-sch]");
+  const schHistoryEl = $("#sch-history");
+  const schHistoryClear = document.querySelector("[data-sch-history-clear]");
+  const schTagButtons = document.querySelectorAll("[data-scholarship-tag]");
+  const schListMode = $("#sch-list-mode");
+  const schTable = document.querySelector(".scholar-table");
+
+  const SCH_HISTORY_KEY = "worldlight_sch_search_history_v1";
+
+  const readSchHistory = () => {
+    try {
+      const raw = localStorage.getItem(SCH_HISTORY_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const writeSchHistory = (list) => {
+    try {
+      localStorage.setItem(SCH_HISTORY_KEY, JSON.stringify(list.slice(0, 10)));
+    } catch {
+      // ignore
+    }
+  };
+
+  const renderSchHistory = () => {
+    if (!schHistoryEl) return;
+    const items = readSchHistory();
+    schHistoryEl.innerHTML = "";
+
+    if (!items.length) {
+      const p = document.createElement("p");
+      p.className = "muted";
+      p.style.margin = "0";
+      p.textContent = "No searches yet.";
+      schHistoryEl.appendChild(p);
+      return;
+    }
+
+    items.forEach((q) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = q;
+      btn.addEventListener("click", () => {
+        if (schSearch) schSearch.value = q;
+        applyScholarFilters();
+      });
+      schHistoryEl.appendChild(btn);
+    });
+  };
+
+  const addSchHistoryItem = (value) => {
+    const v = normalize(value);
+    if (!v) return;
+    const existing = readSchHistory();
+    const next = [v, ...existing.filter((x) => x !== v)];
+    writeSchHistory(next);
+    renderSchHistory();
+  };
+
+  const getSchState = () => {
+    return {
+      q: normalize(schSearch?.value || ""),
+      field: normalize(schField?.value || ""),
+      degree: normalize(schDegree?.value || ""),
+      language: normalize(schLanguage?.value || ""),
+      intake: normalize(schIntake?.value || ""),
+      type: normalize(schType?.value || ""),
+      city: normalize(schCity?.value || ""),
+      tag: normalize(document.body.getAttribute("data-sch-tag") || ""),
+    };
+  };
+
+  const applyScholarFilters = () => {
+    if (!schRows.length) return;
+    const { q, field, degree, language, intake, type, city, tag } = getSchState();
+
+    schRows.forEach((row) => {
+      const haystack = normalize(row.getAttribute("data-q") || row.textContent || "");
+      const rowCity = normalize(row.getAttribute("data-city") || "");
+      const rowField = normalize(row.getAttribute("data-field") || "");
+      const rowDegree = normalize(row.getAttribute("data-degree") || "");
+      const rowLang = normalize(row.getAttribute("data-language") || "");
+      const rowIntake = normalize(row.getAttribute("data-intake") || "");
+      const rowType = normalize(row.getAttribute("data-type") || "");
+      const rowTags = normalize(row.getAttribute("data-tags") || "");
+
+      const matchesQ = !q || haystack.includes(q);
+      const matchesCity = !city || rowCity.includes(city) || haystack.includes(city);
+      const matchesField = !field || rowField === field;
+      const matchesDegree = !degree || rowDegree === degree;
+      const matchesLang = !language || rowLang === language;
+      const matchesIntake = !intake || rowIntake === intake;
+      const matchesType = !type || rowType === type;
+      const matchesTag = !tag || rowTags.split(/\s+/).includes(tag);
+
+      row.style.display =
+        matchesQ && matchesCity && matchesField && matchesDegree && matchesLang && matchesIntake && matchesType && matchesTag
+          ? ""
+          : "none";
+    });
+
+    if (q) addSchHistoryItem(q);
+  };
+
+  if (schSearch) {
+    schSearch.addEventListener("input", applyScholarFilters);
+    schSearch.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyScholarFilters();
+    });
+  }
+  if (schSearchBtn) schSearchBtn.addEventListener("click", applyScholarFilters);
+  if (schField) schField.addEventListener("change", applyScholarFilters);
+  if (schDegree) schDegree.addEventListener("change", applyScholarFilters);
+  if (schLanguage) schLanguage.addEventListener("change", applyScholarFilters);
+  if (schIntake) schIntake.addEventListener("change", applyScholarFilters);
+  if (schType) schType.addEventListener("change", applyScholarFilters);
+  if (schCity) schCity.addEventListener("input", applyScholarFilters);
+
+  if (schHistoryClear) {
+    schHistoryClear.addEventListener("click", () => {
+      writeSchHistory([]);
+      renderSchHistory();
+    });
+  }
+
+  if (schTagButtons.length) {
+    schTagButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const v = normalize(btn.getAttribute("data-scholarship-tag") || "");
+        // Toggle tag
+        const current = normalize(document.body.getAttribute("data-sch-tag") || "");
+        const next = current === v ? "" : v;
+        document.body.setAttribute("data-sch-tag", next);
+        applyScholarFilters();
+      });
+    });
+  }
+
+  if (schListMode && schTable) {
+    schListMode.addEventListener("change", () => {
+      schTable.classList.toggle("is-list", Boolean(schListMode.checked));
+    });
+  }
+
+  const schApplyLinks = document.querySelectorAll("[data-sch-apply]");
+  if (schApplyLinks.length) {
+    schApplyLinks.forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const target = e.currentTarget;
+        if (!(target instanceof HTMLAnchorElement)) return;
+        const id = target.getAttribute("data-program-id") || "";
+        const name = target.getAttribute("data-program-name") || "";
+        const cityLabel = target.getAttribute("data-program-city") || "";
+        if (!id && !name) return;
+        const url = new URL(target.href, window.location.href);
+        url.searchParams.set("programId", id);
+        if (name) url.searchParams.set("program", name);
+        if (cityLabel) url.searchParams.set("city", cityLabel);
+        target.href = url.toString();
+      });
+    });
+  }
+
+  if (schHistoryEl) renderSchHistory();
 
   // --- Generic tabs (used on university detail pages) ---
   const tabButtons = document.querySelectorAll("[data-tab]");

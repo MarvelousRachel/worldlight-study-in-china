@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scholarships — WorldLight Study in China</title>
+    <meta name="description" content="Browse scholarship programs supported by WorldLight Study in China." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Scholarships — WorldLight Study in China" />
+    <meta property="og:description" content="Browse scholarship programs supported by WorldLight Study in China." />
+    <meta property="og:image" content="./flyers/Flyer for promotion.jpg" />
+
+    <meta name="theme-color" content="#1f4dff" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="topbar" aria-label="Utility navigation">
+      <div class="container topbar-inner">
+        <p class="topbar-welcome">Welcome to WorldLight!</p>
+        <div class="topbar-actions" role="navigation" aria-label="Account and quick links">
+          <a href="./index.html#contact">Log in</a>
+          <a href="./index.html#contact">Sign up</a>
+          <span class="topbar-divider" aria-hidden="true">|</span>
+          <a href="./index.html#contact">My Wallet</a>
+          <a href="./index.html#contact">My Orders</a>
+          <a href="./index.html#contact">Favorites</a>
+          <a href="./index.html#contact">Messages</a>
+          <a href="./index.html#contact">Vouchers</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header" id="top">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="./index.html" aria-label="WorldLight Home">
+          <img class="brand-logo" src="./flyers/Logo.jpg" alt="WorldLight logo" width="40" height="40" loading="eager" decoding="async" />
+          <span class="brand-text">
+            <span class="brand-name">WorldLight</span>
+            <span class="brand-tag">Study in China</span>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          <span aria-hidden="true">☰</span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+          <a href="./index.html">Home</a>
+          <a href="./programs.html">Programs</a>
+          <a href="./scholarships.html" aria-current="page">Scholarships</a>
+          <a href="./universities.html">Universities</a>
+          <a href="./index.html#contact" class="btn btn-small">Apply Now</a>
+        </div>
+      </nav>
+
+      <div class="search-bar" role="search" aria-label="Scholarship program search">
+        <div class="container search-inner">
+          <a class="btn btn-ghost btn-small search-programs" href="./programs.html">Programs</a>
+          <label class="sr-only" for="scholarship-search">Please enter program/university keywords</label>
+          <input id="scholarship-search" class="search-input" type="search" placeholder="Please enter program/university keywords" autocomplete="off" />
+          <button class="btn btn-small search-btn" type="button" data-scholarship-search>Search</button>
+          <div class="search-icons" aria-label="Quick actions">
+            <a class="search-icon" href="./index.html#contact" aria-label="Cart">Cart</a>
+            <a class="search-icon" href="./index.html#contact" aria-label="Top up wallet">Top up wallet</a>
+            <a class="search-icon" href="./index.html#contact" aria-label="My">My</a>
+          </div>
+        </div>
+        <div class="container tags-row" aria-label="Popular filters">
+          <button class="tag-chip" type="button" data-scholarship-tag="new">New</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="best-seller">Best Seller</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="high-success">High Success Rate</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="fast-offer">Fast Offer</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="full-scholarship">Full Scholarship</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="free-tuition">Free Tuition</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="top-ranking">Top Ranking</button>
+          <button class="tag-chip" type="button" data-scholarship-tag="hot-city">Hot City</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h1 style="margin: 0; font-size: clamp(2rem, 3vw, 2.6rem)">Scholarships</h1>
+            <p class="muted">Search and filter scholarship programs. Click “Apply” to contact WorldLight with the program ID.</p>
+          </div>
+
+          <div class="scholar-layout">
+            <aside class="scholar-filters" aria-label="Scholarship program filters">
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-field">Field</label>
+                <select id="sch-field" class="uni-select">
+                  <option value="">All</option>
+                  <option value="chinese">Chinese Language</option>
+                  <option value="economics">Economics</option>
+                  <option value="management">Management</option>
+                  <option value="engineering">Engineering</option>
+                  <option value="science">Science</option>
+                  <option value="medicine">Medicine</option>
+                  <option value="literature">Literature</option>
+                  <option value="legal">Legal Studies</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="fine-arts">Fine Arts</option>
+                </select>
+              </div>
+
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-degree">Degree</label>
+                <select id="sch-degree" class="uni-select">
+                  <option value="">All</option>
+                  <option value="bachelor">Bachelor</option>
+                  <option value="master">Master</option>
+                  <option value="phd">PhD</option>
+                  <option value="non-degree">Non-degree</option>
+                </select>
+              </div>
+
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-language">Teaching language</label>
+                <select id="sch-language" class="uni-select">
+                  <option value="">All</option>
+                  <option value="english">English</option>
+                  <option value="chinese">Chinese</option>
+                  <option value="bilingual">Bilingual</option>
+                </select>
+              </div>
+
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-intake">Intake</label>
+                <select id="sch-intake" class="uni-select">
+                  <option value="">All</option>
+                  <option value="2026-autumn">2026 Autumn</option>
+                  <option value="2026-spring">2026 Spring</option>
+                </select>
+              </div>
+
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-city">City</label>
+                <input id="sch-city" class="uni-input" type="search" placeholder="City" autocomplete="off" />
+              </div>
+
+              <div class="uni-filter-block">
+                <label class="uni-label" for="sch-type">Scholarship type</label>
+                <select id="sch-type" class="uni-select">
+                  <option value="">All</option>
+                  <option value="type-a">Type A</option>
+                  <option value="type-b">Type B</option>
+                  <option value="type-c">Type C</option>
+                  <option value="type-d">Type D</option>
+                </select>
+              </div>
+
+              <div class="uni-filter-block">
+                <div class="uni-history-head">
+                  <span class="uni-label">Search History</span>
+                  <button class="btn btn-ghost btn-small" type="button" data-sch-history-clear>Clear</button>
+                </div>
+                <div class="uni-history" id="sch-history" aria-live="polite"></div>
+              </div>
+            </aside>
+
+            <section class="scholar-results" aria-label="Scholarship program results">
+              <div class="scholar-tools">
+                <label class="muted" style="display: inline-flex; gap: 10px; align-items: center;">
+                  <span>List mode</span>
+                  <input type="checkbox" id="sch-list-mode" />
+                </label>
+              </div>
+
+              <div class="scholar-table" role="table" aria-label="Scholarship programs">
+                <div class="scholar-header" role="row">
+                  <div role="columnheader">City, Province</div>
+                  <div role="columnheader">Program name</div>
+                  <div role="columnheader">Program ID</div>
+                  <div role="columnheader">Degree</div>
+                  <div role="columnheader">Teaching language</div>
+                  <div role="columnheader">Intake</div>
+                  <div role="columnheader">Scholarship type</div>
+                  <div role="columnheader">Deadline</div>
+                  <div role="columnheader">Apply</div>
+                </div>
+
+                <div class="scholar-body" id="scholar-list">
+                  <!-- Example rows (edit/add more anytime) -->
+                  <article class="scholar-row" role="row" data-sch data-q="biology and medicine taizhou ame2603250024" data-city="taizhou" data-field="medicine" data-degree="master" data-language="english" data-intake="2026-autumn" data-type="type-a" data-tags="new full-scholarship">
+                    <div class="scholar-cell" role="cell">Taizhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Biology and Medicine</strong></div>
+                    <div class="scholar-cell" role="cell">AME2603250024</div>
+                    <div class="scholar-cell" role="cell">Master</div>
+                    <div class="scholar-cell" role="cell">English</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type A</div>
+                    <div class="scholar-cell" role="cell">Jul 20, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="AME2603250024" data-program-name="Biology and Medicine" data-program-city="Taizhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="chinese language and literature chuzhou abc2604240005" data-city="chuzhou" data-field="literature" data-degree="bachelor" data-language="chinese" data-intake="2026-autumn" data-type="type-a" data-tags="free-tuition">
+                    <div class="scholar-cell" role="cell">Chuzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Chinese Language and Literature (1 + 4)</strong></div>
+                    <div class="scholar-cell" role="cell">ABC2604240005</div>
+                    <div class="scholar-cell" role="cell">Bachelor</div>
+                    <div class="scholar-cell" role="cell">Chinese</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type A</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="ABC2604240005" data-program-name="Chinese Language and Literature (1 + 4)" data-program-city="Chuzhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="computer science and technology chuzhou abc2604240006" data-city="chuzhou" data-field="science" data-degree="bachelor" data-language="chinese" data-intake="2026-autumn" data-type="type-a" data-tags="top-ranking">
+                    <div class="scholar-cell" role="cell">Chuzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Computer Science and Technology (1 + 4)</strong></div>
+                    <div class="scholar-cell" role="cell">ABC2604240006</div>
+                    <div class="scholar-cell" role="cell">Bachelor</div>
+                    <div class="scholar-cell" role="cell">Chinese</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type A</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="ABC2604240006" data-program-name="Computer Science and Technology (1 + 4)" data-program-city="Chuzhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="international economics and trade chuzhou abc2604240007" data-city="chuzhou" data-field="economics" data-degree="bachelor" data-language="chinese" data-intake="2026-autumn" data-type="type-a" data-tags="international-trade">
+                    <div class="scholar-cell" role="cell">Chuzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>International Economics and Trade (1 + 4)</strong></div>
+                    <div class="scholar-cell" role="cell">ABC2604240007</div>
+                    <div class="scholar-cell" role="cell">Bachelor</div>
+                    <div class="scholar-cell" role="cell">Chinese</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type A</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="ABC2604240007" data-program-name="International Economics and Trade (1 + 4)" data-program-city="Chuzhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="chinese language 0.5 year xian dnc2604070001" data-city="xi'an" data-field="chinese" data-degree="non-degree" data-language="chinese" data-intake="2026-autumn" data-type="type-d" data-tags="fast-offer">
+                    <div class="scholar-cell" role="cell">Xi'an</div>
+                    <div class="scholar-cell" role="cell"><strong>Chinese Language (0.5 Year)</strong></div>
+                    <div class="scholar-cell" role="cell">DNC2604070001</div>
+                    <div class="scholar-cell" role="cell">Non-degree</div>
+                    <div class="scholar-cell" role="cell">Chinese</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type D</div>
+                    <div class="scholar-cell" role="cell">Jul 06, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="DNC2604070001" data-program-name="Chinese Language (0.5 Year)" data-program-city="Xi'an">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="international business administration shenzhen abe2601090057" data-city="shenzhen" data-field="management" data-degree="bachelor" data-language="english" data-intake="2026-autumn" data-type="type-a" data-tags="hot-city">
+                    <div class="scholar-cell" role="cell">Shenzhen</div>
+                    <div class="scholar-cell" role="cell"><strong>International Business Administration</strong></div>
+                    <div class="scholar-cell" role="cell">ABE2601090057</div>
+                    <div class="scholar-cell" role="cell">Bachelor</div>
+                    <div class="scholar-cell" role="cell">English</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type A</div>
+                    <div class="scholar-cell" role="cell">May 29, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="ABE2601090057" data-program-name="International Business Administration" data-program-city="Shenzhen">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="information and communication engineering hangzhou bmc2604230031" data-city="hangzhou" data-field="engineering" data-degree="master" data-language="bilingual" data-intake="2026-autumn" data-type="type-b" data-tags="high-success">
+                    <div class="scholar-cell" role="cell">Hangzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Information and Communication Engineering</strong></div>
+                    <div class="scholar-cell" role="cell">BMC2604230031</div>
+                    <div class="scholar-cell" role="cell">Master</div>
+                    <div class="scholar-cell" role="cell">Chinese-English Bilingual</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type B</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="BMC2604230031" data-program-name="Information and Communication Engineering" data-program-city="Hangzhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="instrument science and technology hangzhou bmc2604230033" data-city="hangzhou" data-field="engineering" data-degree="master" data-language="bilingual" data-intake="2026-autumn" data-type="type-b" data-tags="best-seller">
+                    <div class="scholar-cell" role="cell">Hangzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Instrument Science and Technology</strong></div>
+                    <div class="scholar-cell" role="cell">BMC2604230033</div>
+                    <div class="scholar-cell" role="cell">Master</div>
+                    <div class="scholar-cell" role="cell">Chinese-English Bilingual</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type B</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="BMC2604230033" data-program-name="Instrument Science and Technology" data-program-city="Hangzhou">Apply</a></div>
+                  </article>
+
+                  <article class="scholar-row" role="row" data-sch data-q="optical engineering hangzhou bmc2604230034" data-city="hangzhou" data-field="engineering" data-degree="master" data-language="bilingual" data-intake="2026-autumn" data-type="type-b" data-tags="">
+                    <div class="scholar-cell" role="cell">Hangzhou</div>
+                    <div class="scholar-cell" role="cell"><strong>Optical Engineering</strong></div>
+                    <div class="scholar-cell" role="cell">BMC2604230034</div>
+                    <div class="scholar-cell" role="cell">Master</div>
+                    <div class="scholar-cell" role="cell">Chinese-English Bilingual</div>
+                    <div class="scholar-cell" role="cell">2026 Autumn</div>
+                    <div class="scholar-cell" role="cell">Type B</div>
+                    <div class="scholar-cell" role="cell">Jun 30, 2026</div>
+                    <div class="scholar-cell" role="cell"><a class="btn btn-small" href="./index.html#contact" data-sch-apply data-program-id="BMC2604230034" data-program-name="Optical Engineering" data-program-city="Hangzhou">Apply</a></div>
+                  </article>
+                </div>
+              </div>
+
+              <p class="muted" style="margin-top: 12px;">Tip: add more programs by copying and editing a <code>&lt;article class="scholar-row"&gt;</code> block.</p>
+
+              <div class="callout" style="margin-top: 14px;">
+                <div>
+                  <h3>Need help choosing a program?</h3>
+                  <p class="muted">Send your major + level and we’ll recommend options with scholarships.</p>
+                </div>
+                <a class="btn btn-small" href="./index.html#contact">Contact us</a>
+              </div>
+            </section>
+          </div>
+
+          <p style="margin-top: 18px">
+            <a class="btn btn-ghost" href="./index.html">← Back to Home</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand brand-footer">
+            <span class="brand-mark" aria-hidden="true">WL</span>
+            <span class="brand-text">
+              <span class="brand-name">WorldLight</span>
+              <span class="brand-tag">Study in China</span>
+            </span>
+          </div>
+          <p class="muted">Your trusted support for China scholarships and admissions.</p>
+        </div>
+        <div>
+          <h3>Quick links</h3>
+          <a href="./programs.html">Programs</a><br />
+          <a href="./universities.html">Universities</a><br />
+          <a href="./index.html#contact">Apply now</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p class="muted" style="margin: 0;">WhatsApp: +86 178 8822 7482</p>
+          <p class="muted" style="margin: 0;">Email: infoatworldlightltd@gmail.com</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

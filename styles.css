@@ -29,6 +29,8 @@ body {
   margin: 0;
   font-family: var(--font);
   color: var(--text);
+  font-size: 18px;
+  line-height: 1.55;
   background:
     radial-gradient(900px 500px at 12% 8%, rgba(31, 77, 255, 0.18), transparent 60%),
     radial-gradient(700px 520px at 85% 0%, rgba(249, 115, 22, 0.18), transparent 62%),
@@ -47,6 +49,20 @@ a:hover {
 .container {
   width: min(var(--container), calc(100% - 2.4rem));
   margin: 0 auto;
+}
+
+/* Premium desktop: slightly wider gutters so the page doesn’t feel cramped */
+@media (min-width: 1100px) {
+  .container,
+  .nav {
+  width: min(var(--container), calc(100% - 4rem));
+  }
+
+  .nav,
+  .search-inner {
+  padding-left: 22px;
+  padding-right: 22px;
+  }
 }
 
 .skip-link {
@@ -69,7 +85,7 @@ a:hover {
   top: 0;
   z-index: 40;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid var(--line);
 }
 
@@ -83,11 +99,21 @@ a:hover {
   gap: 14px;
 }
 
+/* Header alignment: give the brand and links a clear “start edge” */
+.nav {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   text-decoration: none;
+}
+
+.brand {
+  min-width: max-content;
 }
 
 .brand:hover {
@@ -123,13 +149,25 @@ a:hover {
   line-height: 1.05;
 }
 
+.brand-text {
+  padding-top: 2px;
+}
+
 .brand-name {
   font-weight: 800;
+}
+
+.brand-name {
+  letter-spacing: 0.01em;
 }
 
 .brand-tag {
   font-size: 0.86rem;
   color: var(--muted);
+}
+
+.brand-tag {
+  margin-top: 2px;
 }
 
 .nav-toggle {
@@ -360,6 +398,12 @@ a:hover {
   padding: 12px 0;
 }
 
+/* Match search row start edge with header brand */
+.search-inner {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .search-programs {
   white-space: nowrap;
 }
@@ -406,7 +450,7 @@ a:hover {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 999px;
   padding: 8px 10px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
 }
 
@@ -415,7 +459,7 @@ a:hover {
 }
 
 .market {
-  padding: 24px 0 14px;
+  padding: 18px 0 12px;
 }
 
 .market-grid {
@@ -501,6 +545,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 14px;
+  min-height: 240px;
 }
 
 .banner .lead,
@@ -511,12 +556,12 @@ a:hover {
 .banner h1 {
   margin-top: 10px;
   margin-bottom: 8px;
-  font-size: clamp(2rem, 2.6vw, 2.6rem);
+  font-size: clamp(2.35rem, 3.1vw, 3.15rem);
   line-height: 1.12;
 }
 
 .banner .lead {
-  font-size: 1.05rem;
+  font-size: 1.22rem;
   line-height: 1.55;
   max-width: 52ch;
 }
@@ -529,7 +574,7 @@ a:hover {
 }
 
 .banner-stat {
-  padding: 10px;
+  padding: 12px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.1);
@@ -537,16 +582,21 @@ a:hover {
 
 .banner-stat strong {
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
 }
 
 .banner-stat span {
   opacity: 0.9;
-  font-size: 0.92rem;
+  font-size: 1rem;
 }
 
 .market-row {
-  margin-top: 16px;
+  margin-top: 12px;
+}
+
+.row-head {
+  display: grid;
+  gap: 4px;
 }
 
 .row-head h2 {
@@ -565,7 +615,7 @@ a:hover {
 }
 
 .stats-strip {
-  margin-top: 16px;
+  margin-top: 12px;
   padding: 14px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -584,7 +634,96 @@ a:hover {
 .stat span {
   display: block;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+}
+
+/* Make desktop typography feel less “tiny” and reduce dead space */
+@media (min-width: 1100px) {
+  body {
+  font-size: 20px;
+  }
+
+  .row-head p,
+  .card p,
+  .muted,
+  .program-tags,
+  .mini-meta,
+  .side-link,
+  .topbar-actions {
+  font-size: 1.14rem;
+  }
+
+  .sidebar-links a,
+  .tag-chip,
+  .search-icon,
+  .nav-links a {
+  font-size: 1.14rem;
+  }
+
+  .sidebar-title,
+  .side-title {
+  font-size: 1.18rem;
+  }
+
+  .topbar-welcome {
+  font-size: 1.14rem;
+  }
+
+  .brand-tag {
+  font-size: 1.02rem;
+  }
+
+  .banner h1 {
+  font-size: clamp(3rem, 3.35vw, 3.75rem);
+  }
+
+  .banner .lead {
+  font-size: 1.32rem;
+    max-width: 60ch;
+  }
+
+  .banner-stat strong {
+  font-size: 1.6rem;
+  }
+
+  .banner-stat span {
+  font-size: 1.06rem;
+  }
+
+  .stats-strip {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .stat strong {
+    font-size: 1.4rem;
+  }
+
+  .stat span {
+    font-size: 1.02rem;
+  }
+
+  .cards {
+    gap: 16px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .banner {
+    gap: 14px;
+  padding: 26px;
+  min-height: 280px;
+  }
+
+  .banner-stats {
+    gap: 10px;
+  }
+
+  .banner-stat {
+    padding: 14px;
+  }
 }
 
 .uni-cards,
@@ -603,7 +742,7 @@ a:hover {
 
 .program-tags {
   margin: 0 0 10px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--muted);
 }
 
@@ -751,6 +890,40 @@ a:hover {
   white-space: normal;
 }
 
+/* Scholarships table: premium readability */
+@media (min-width: 1100px) {
+  .scholar-header,
+  .scholar-row {
+    padding: 14px 16px;
+    gap: 16px;
+  }
+
+  .scholar-header {
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .scholar-cell {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .scholar-cell strong {
+    font-size: 1.02rem;
+  }
+
+  .fav-btn {
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+
+  /* Keep action columns stable, but give labels more room */
+  .scholar-header,
+  .scholar-row {
+    grid-template-columns: 1.25fr 2.6fr 1.2fr 0.95fr 1.2fr 1fr 1fr 1fr 132px 132px;
+  }
+}
+
 .scholar-table.is-list .scholar-header {
   display: none;
 }
@@ -884,7 +1057,7 @@ a:hover {
 .uni-row-meta {
   margin: 8px 0 0;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .uni-tag {
@@ -1113,7 +1286,7 @@ h1 {
 
 .lead {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--muted);
   max-width: 55ch;
 }
@@ -1140,7 +1313,7 @@ h1 {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.05);
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .hero-card {
@@ -1158,6 +1331,16 @@ h1 {
 
 .muted {
   color: var(--muted);
+}
+
+/* Global readability: ensure common body/meta text never feels tiny */
+.card p,
+.row-head p,
+.muted,
+.mini-meta,
+.side-link,
+.topbar-actions {
+  font-size: 1rem;
 }
 
 .chips {
@@ -1195,7 +1378,12 @@ h1 {
   font-weight: 700;
 }
 
-.section { padding: 42px 0; }
+/* Premium spacing: keep breathing room, but avoid large empty blocks */
+.section { padding: 32px 0; }
+
+@media (min-width: 1100px) {
+  .section { padding: 38px 0; }
+}
 
 .section.alt {
   border-top: 1px solid var(--line);
@@ -1211,7 +1399,13 @@ h1 {
 
 .section-head h2 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 2rem;
+}
+
+@media (min-width: 1100px) {
+  .section-head h2 {
+    font-size: 1.95rem;
+  }
 }
 
 .section-head p {
@@ -1231,6 +1425,13 @@ h1 {
   border: 1px solid var(--line);
   background: var(--panel);
   box-shadow: 0 10px 24px rgba(16, 24, 40, 0.06);
+}
+
+/* Slightly roomier cards on larger screens (keeps the “premium” feel). */
+@media (min-width: 1100px) {
+  .card {
+    padding: 20px;
+  }
 }
 
 .card h3 {

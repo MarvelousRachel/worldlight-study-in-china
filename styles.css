@@ -660,8 +660,8 @@ a:hover {
 .scholar-header,
 .scholar-row {
   display: grid;
-  grid-template-columns: 1.2fr 2.2fr 1.3fr 1fr 1.4fr 1fr 1.2fr 1.1fr 120px 120px;
-  gap: 10px;
+  grid-template-columns: 1.35fr 2.8fr 1.35fr 1fr 1.35fr 1fr 1.15fr 1.2fr 120px 120px;
+  gap: 14px;
   align-items: center;
   padding: 12px 14px;
 }
@@ -670,7 +670,7 @@ a:hover {
   font-weight: 800;
   font-size: 0.95rem;
   background: rgba(31, 77, 255, 0.08);
-  grid-template-columns: 1.05fr 1.35fr 1.1fr 0.85fr 1fr 0.95fr 0.95fr 0.95fr 0.7fr 0.85fr;
+  grid-template-columns: 1.1fr 2fr 1.1fr 0.9fr 1.05fr 0.95fr 0.95fr 0.95fr 0.7fr 0.85fr;
   border-bottom: 1px solid var(--line);
 }
 
@@ -708,11 +708,14 @@ a:hover {
 .scholar-cell {
   min-width: 0;
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
 }
 
 .scholar-cell strong {
   display: inline-block;
   font-size: 0.98rem;
+  white-space: normal;
 }
 
 .scholar-table.is-list .scholar-header {

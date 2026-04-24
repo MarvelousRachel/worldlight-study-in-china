@@ -109,6 +109,29 @@
             <button class="apply-step" type="button" role="tab" aria-selected="false" data-tab="program">Select Program</button>
           </div>
 
+          <div class="callout" style="margin-top: 14px;">
+            <div>
+              <h3 style="margin: 0;">Favorites</h3>
+              <p class="muted" style="margin: 6px 0 0;">Open your saved programs and apply in one click.</p>
+            </div>
+            <a class="btn btn-ghost btn-small" href="#" data-favorites-open>View favorites</a>
+          </div>
+
+          <div class="apply-card" data-favorites-panel hidden style="margin-top: 12px;">
+            <div style="display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items:center;">
+              <div>
+                <h3 style="margin: 0;">My favorites</h3>
+                <p class="muted" style="margin: 6px 0 0;">Select a program below to open the Apply flow with it pre-filled.</p>
+              </div>
+              <div class="apply-actions" style="margin: 0;">
+                <button class="btn btn-ghost btn-small" type="button" data-favorites-clear>Clear all</button>
+                <button class="btn btn-small" type="button" data-favorites-close>Close</button>
+              </div>
+            </div>
+
+            <div id="favoritesList" style="margin-top: 12px; display: grid; gap: 10px;"></div>
+          </div>
+
           <section class="tab-panel active" role="tabpanel" data-panel="student">
             <form class="apply-card" id="apply-student-form" autocomplete="on">
               <div class="apply-grid">

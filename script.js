@@ -72,6 +72,172 @@
 
   const normalize = (s) => String(s || "").toLowerCase().trim();
 
+  // --- Favorites (localStorage, client-side) ---
+  const FAV_KEY = "worldlight_favorite_programs_v1";
+
+  const readFavorites = () => {
+    try {
+      const raw = localStorage.getItem(FAV_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list.filter(Boolean) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const writeFavorites = (items) => {
+    try {
+      localStorage.setItem(FAV_KEY, JSON.stringify(items));
+    } catch {
+      // ignore
+    }
+  };
+
+  const isFavorited = (programId) => {
+    if (!programId) return false;
+    const items = readFavorites();
+    return items.some((x) => String(x.programId || "") === String(programId));
+  };
+
+  const toggleFavorite = (item) => {
+    if (!item || !item.programId) return { next: false, items: readFavorites() };
+    const items = readFavorites();
+    const exists = items.some((x) => String(x.programId || "") === String(item.programId));
+    const nextItems = exists ? items.filter((x) => String(x.programId || "") !== String(item.programId)) : [item, ...items];
+    writeFavorites(nextItems);
+    return { next: !exists, items: nextItems };
+  };
+
+  const setFavBtnState = (btn, fav) => {
+    if (!(btn instanceof HTMLElement)) return;
+    btn.textContent = fav ? "★" : "☆";
+    btn.setAttribute("data-favorited", fav ? "true" : "false");
+    btn.setAttribute("aria-pressed", fav ? "true" : "false");
+  };
+
+  const syncAllFavButtons = () => {
+    document.querySelectorAll("[data-fav-toggle]").forEach((btn) => {
+      if (!(btn instanceof HTMLElement)) return;
+      const id = btn.getAttribute("data-program-id") || "";
+      setFavBtnState(btn, isFavorited(id));
+    });
+  };
+
+  const favoritesPanel = document.querySelector("[data-favorites-panel]");
+  const favoritesList = document.querySelector("#favoritesList");
+  const favOpen = document.querySelector("[data-favorites-open]");
+  const favClose = document.querySelector("[data-favorites-close]");
+  const favClear = document.querySelector("[data-favorites-clear]");
+
+  const renderFavoritesPanel = () => {
+    if (!favoritesPanel || !favoritesList) return;
+    favoritesList.innerHTML = "";
+    const items = readFavorites();
+
+    if (!items.length) {
+      const p = document.createElement("p");
+      p.className = "muted";
+      p.style.margin = "0";
+      p.textContent = "No favorites yet.";
+      favoritesList.appendChild(p);
+      return;
+    }
+
+    items.forEach((item) => {
+      const card = document.createElement("div");
+      card.className = "list-item";
+
+      const title = document.createElement("strong");
+      title.textContent = item.programName || item.programId;
+
+      const meta = document.createElement("p");
+      meta.className = "muted";
+      meta.style.margin = "6px 0 0";
+      meta.textContent = [item.programId ? `Program ID: ${item.programId}` : "", item.city ? `City: ${item.city}` : ""].filter(Boolean).join(" · ");
+
+      const actions = document.createElement("div");
+      actions.className = "apply-actions";
+      actions.style.margin = "10px 0 0";
+
+      const view = document.createElement("a");
+      view.className = "btn btn-ghost btn-small";
+      view.textContent = "View";
+      view.href = item.detailUrl || "./scholarships.html";
+
+      const apply = document.createElement("a");
+      apply.className = "btn btn-small";
+      apply.textContent = "Apply";
+      const applyUrl = new URL("./apply.html", window.location.href);
+      applyUrl.searchParams.set("programId", item.programId || "");
+      if (item.programName) applyUrl.searchParams.set("program", item.programName);
+      if (item.city) applyUrl.searchParams.set("city", item.city);
+      apply.href = applyUrl.toString();
+
+      const remove = document.createElement("button");
+      remove.className = "btn btn-ghost btn-small";
+      remove.type = "button";
+      remove.textContent = "Remove";
+      remove.addEventListener("click", () => {
+        toggleFavorite({ programId: item.programId, programName: item.programName, city: item.city, detailUrl: item.detailUrl });
+        renderFavoritesPanel();
+        syncAllFavButtons();
+      });
+
+      actions.appendChild(view);
+      actions.appendChild(apply);
+      actions.appendChild(remove);
+
+      card.appendChild(title);
+      card.appendChild(meta);
+      card.appendChild(actions);
+      favoritesList.appendChild(card);
+    });
+  };
+
+  const openFavoritesPanel = () => {
+    if (!favoritesPanel) return;
+    favoritesPanel.removeAttribute("hidden");
+    renderFavoritesPanel();
+    favoritesPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const closeFavoritesPanel = () => {
+    if (!favoritesPanel) return;
+    favoritesPanel.setAttribute("hidden", "");
+  };
+
+  if (favOpen) {
+    favOpen.addEventListener("click", (e) => {
+      e.preventDefault();
+      openFavoritesPanel();
+    });
+  }
+  if (favClose) favClose.addEventListener("click", closeFavoritesPanel);
+  if (favClear) {
+    favClear.addEventListener("click", () => {
+      writeFavorites([]);
+      renderFavoritesPanel();
+      syncAllFavButtons();
+    });
+  }
+
+  document.querySelectorAll("[data-fav-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!(btn instanceof HTMLElement)) return;
+      const programId = btn.getAttribute("data-program-id") || "";
+      const programName = btn.getAttribute("data-program-name") || "";
+      const city = btn.getAttribute("data-program-city") || "";
+      const detailUrl = btn.getAttribute("data-program-detail") || "";
+      const result = toggleFavorite({ programId, programName, city, detailUrl });
+      setFavBtnState(btn, result.next);
+      renderFavoritesPanel();
+      syncAllFavButtons();
+    });
+  });
+
+  // Initial sync on every page.
+  syncAllFavButtons();
+
   const applyHomepageSearch = () => {
     if (!searchInput) return;
     const q = normalize(searchInput.value);

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply — WorldLight Study in China</title>
+    <meta name="description" content="Fill in student info and select a program to apply with WorldLight." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Apply — WorldLight Study in China" />
+    <meta property="og:description" content="Fill in student info and select a program to apply." />
+    <meta property="og:image" content="./flyers/Flyer for promotion.jpg" />
+
+    <meta name="theme-color" content="#1f4dff" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="topbar" aria-label="Utility navigation">
+      <div class="container topbar-inner">
+        <p class="topbar-welcome">Welcome to WorldLight!</p>
+        <div class="topbar-actions" role="navigation" aria-label="Account and quick links">
+          <a href="./index.html#contact">Log in</a>
+          <a href="./index.html#contact">Sign up</a>
+          <span class="topbar-divider" aria-hidden="true">|</span>
+          <a href="./index.html#contact">My Wallet</a>
+          <a href="./index.html#contact">My Orders</a>
+          <a href="./index.html#contact">Favorites</a>
+          <a href="./index.html#contact">Messages</a>
+          <a href="./index.html#contact">Vouchers</a>
+          <span class="topbar-divider" aria-hidden="true">|</span>
+          <button class="topbar-lang" type="button" data-lang-toggle aria-haspopup="listbox" aria-expanded="false">
+            Select Language <span aria-hidden="true">▼</span>
+          </button>
+          <div class="topbar-lang-menu" role="listbox" aria-label="Select language" hidden>
+            <button type="button" role="option" data-lang="en" aria-selected="true">English</button>
+            <button type="button" role="option" data-lang="fr">French</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header" id="top">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="./index.html" aria-label="WorldLight Home">
+          <img class="brand-logo" src="./flyers/Logo.jpg" alt="WorldLight logo" width="40" height="40" loading="eager" decoding="async" />
+          <span class="brand-text">
+            <span class="brand-name">WorldLight</span>
+            <span class="brand-tag">Study in China</span>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          <span aria-hidden="true">☰</span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+          <a href="./index.html">Home</a>
+          <a href="./programs.html">Programs</a>
+          <a href="./scholarships.html">Scholarships</a>
+          <a href="./universities.html">Universities</a>
+          <a href="./apply.html" aria-current="page">Apply</a>
+          <a href="./index.html#contact" class="btn btn-small">Contact</a>
+        </div>
+      </nav>
+
+      <div class="search-bar" role="search" aria-label="Apply search">
+        <div class="container search-inner">
+          <a class="btn btn-ghost btn-small search-programs" href="./programs.html">Programs</a>
+          <label class="sr-only" for="apply-search">Please enter program/university keywords</label>
+          <input id="apply-search" class="search-input" type="search" placeholder="Please enter program/university keywords" autocomplete="off" />
+          <button class="btn btn-small search-btn" type="button" data-apply-search>Search</button>
+          <div class="search-icons" aria-label="Quick actions">
+            <a class="search-icon" href="./index.html#contact" aria-label="Cart">Cart</a>
+            <a class="search-icon" href="./index.html#contact" aria-label="Top up wallet">Top up wallet</a>
+            <a class="search-icon" href="./index.html#contact" aria-label="My">My</a>
+          </div>
+        </div>
+        <div class="container tags-row" aria-label="Popular filters">
+          <button class="tag-chip" type="button" data-apply-tag="new">New</button>
+          <button class="tag-chip" type="button" data-apply-tag="best-seller">Best Seller</button>
+          <button class="tag-chip" type="button" data-apply-tag="high-success">High Success Rate</button>
+          <button class="tag-chip" type="button" data-apply-tag="fast-offer">Fast Offer</button>
+          <button class="tag-chip" type="button" data-apply-tag="full-scholarship">Full Scholarship</button>
+          <button class="tag-chip" type="button" data-apply-tag="free-tuition">Free Tuition</button>
+          <button class="tag-chip" type="button" data-apply-tag="top-ranking">Top Ranking</button>
+          <button class="tag-chip" type="button" data-apply-tag="hot-city">Hot City</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h1 style="margin: 0; font-size: clamp(2rem, 3vw, 2.6rem)">Apply</h1>
+            <p class="muted" style="max-width: 75ch;">Fill in Student Info, then confirm the Program. We’ll use this to prepare your application.</p>
+          </div>
+
+          <div class="apply-steps" role="tablist" aria-label="Apply steps">
+            <button class="apply-step active" type="button" role="tab" aria-selected="true" data-tab="student">Fill in Student Info</button>
+            <button class="apply-step" type="button" role="tab" aria-selected="false" data-tab="program">Select Program</button>
+          </div>
+
+          <section class="tab-panel active" role="tabpanel" data-panel="student">
+            <form class="apply-card" id="apply-student-form" autocomplete="on">
+              <div class="apply-grid">
+                <div class="field">
+                  <label for="fullName">Full name</label>
+                  <input id="fullName" name="fullName" type="text" placeholder="Enter student's full name on passport" required />
+                </div>
+
+                <div class="field">
+                  <label for="surname">Surname</label>
+                  <input id="surname" name="surname" type="text" placeholder="Enter student's surname on passport" />
+                </div>
+
+                <div class="field">
+                  <label for="givenName">Given name</label>
+                  <input id="givenName" name="givenName" type="text" placeholder="Enter student's given name on passport" />
+                </div>
+
+                <div class="field">
+                  <label for="nationality">Nationality</label>
+                  <select id="nationality" name="nationality" required>
+                    <option value="" selected disabled>Select student's nationality</option>
+                    <option value="Cameroon">Cameroon</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="dob">Date of birth</label>
+                  <input id="dob" name="dob" type="date" required />
+                </div>
+
+                <div class="field">
+                  <label for="sex">Sex</label>
+                  <select id="sex" name="sex" required>
+                    <option value="" selected disabled>Select student's sex</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="passportNo">Passport no.</label>
+                  <input id="passportNo" name="passportNo" type="text" placeholder="Enter student's passport no." required />
+                </div>
+
+                <div class="field">
+                  <label for="marital">Marital Status</label>
+                  <select id="marital" name="marital">
+                    <option value="Single" selected>Single</option>
+                    <option value="Married">Married</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="passportExpiry">Passport expiry date</label>
+                  <input id="passportExpiry" name="passportExpiry" type="date" />
+                </div>
+
+                <div class="field">
+                  <label for="religion">Religion</label>
+                  <select id="religion" name="religion">
+                    <option value="" selected disabled>Select student's religion</option>
+                    <option value="Christianity">Christianity</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="language">Official language</label>
+                  <select id="language" name="language">
+                    <option value="" selected disabled>Select student's official language</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="education">Highest education</label>
+                  <select id="education" name="education" required>
+                    <option value="" selected disabled>Select student's highest education</option>
+                    <option value="High School">High School</option>
+                    <option value="Bachelor">Bachelor</option>
+                    <option value="Master">Master</option>
+                    <option value="PhD">PhD</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="Enter student's email" required />
+                </div>
+
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" type="tel" placeholder="Enter student's phone no." />
+                </div>
+
+                <div class="field">
+                  <label for="whatsapp">WhatsApp/WeChat</label>
+                  <input id="whatsapp" name="whatsapp" type="text" placeholder="Enter student's WhatsApp account" />
+                </div>
+
+                <div class="field" style="grid-column: 1 / -1;">
+                  <label for="address">Permanent address</label>
+                  <input id="address" name="address" type="text" placeholder="Enter student's permanent address" />
+                </div>
+
+                <div class="field">
+                  <label for="beenToChina">Has your student ever been to China?</label>
+                  <select id="beenToChina" name="beenToChina" required>
+                    <option value="" selected disabled>Please select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="inChinaNow">Has your student been in China now?</label>
+                  <select id="inChinaNow" name="inChinaNow" required>
+                    <option value="" selected disabled>Please select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="apply-actions">
+                <button class="btn btn-small" type="button" data-apply-next>Next: Select Program</button>
+                <a class="btn btn-ghost btn-small" href="./scholarships.html">Back to Scholarships</a>
+              </div>
+            </form>
+          </section>
+
+          <section class="tab-panel" role="tabpanel" data-panel="program">
+            <div class="apply-card">
+              <div class="apply-program-head">
+                <div>
+                  <h2 style="margin: 0;">Select Program</h2>
+                  <p class="muted" style="margin: 6px 0 0;">Confirm the program you’re applying for.</p>
+                </div>
+                <div class="apply-actions" style="justify-content: flex-end; margin: 0;">
+                  <button class="btn btn-ghost btn-small" type="button" data-apply-back>Back</button>
+                </div>
+              </div>
+
+              <div class="apply-summary" aria-label="Selected program">
+                <div class="apply-summary-item"><span class="muted">Program</span><strong id="applyProgramName">—</strong></div>
+                <div class="apply-summary-item"><span class="muted">Program ID</span><strong id="applyProgramId">—</strong></div>
+                <div class="apply-summary-item"><span class="muted">City</span><strong id="applyProgramCity">—</strong></div>
+              </div>
+
+              <details class="collapse" style="margin-top: 12px;">
+                <summary class="collapse-summary">
+                  <span><strong>Application preview (message we’ll send)</strong></span>
+                  <span class="collapse-hint">Open</span>
+                </summary>
+                <div class="faq-body">
+                  <textarea id="applyPreview" rows="8" style="width: 100%;"></textarea>
+                  <p class="muted" style="margin: 10px 0 0;">Tip: you can edit this message before sending.</p>
+                </div>
+              </details>
+
+              <div class="apply-actions">
+                <a class="btn btn-small" id="applySendBtn" href="./index.html#contact">Send to WorldLight</a>
+                <a class="btn btn-ghost btn-small" href="./index.html#contact">Or contact directly</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand brand-footer">
+            <img class="brand-logo" src="./flyers/Logo.jpg" alt="WorldLight logo" width="34" height="34" loading="lazy" decoding="async" />
+            <span class="brand-text">
+              <span class="brand-name">WorldLight</span>
+              <span class="brand-tag">Study in China</span>
+            </span>
+          </div>
+          <p class="muted">© <span id="year"></span> WorldLight Study in China. All rights reserved.</p>
+        </div>
+        <div class="footer-links" aria-label="Footer links">
+          <a href="./scholarships.html">Scholarships</a>
+          <a href="./programs.html">Programs</a>
+          <a href="./index.html#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

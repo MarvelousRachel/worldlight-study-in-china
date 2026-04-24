@@ -428,11 +428,186 @@
         const name = target.getAttribute("data-program-name") || "";
         const cityLabel = target.getAttribute("data-program-city") || "";
         if (!id && !name) return;
-        const url = new URL(target.href, window.location.href);
+        // Always send applicants to the dedicated Apply page.
+        const url = new URL("./apply.html", window.location.href);
         url.searchParams.set("programId", id);
         if (name) url.searchParams.set("program", name);
         if (cityLabel) url.searchParams.set("city", cityLabel);
         target.href = url.toString();
+      });
+    });
+  }
+
+  // --- Apply page (2-step form) ---
+  const applyStudentForm = document.querySelector("#apply-student-form");
+  const applyNextBtn = document.querySelector("[data-apply-next]");
+  const applyBackBtn = document.querySelector("[data-apply-back]");
+  const applySendBtn = document.querySelector("#applySendBtn");
+  const applyPreview = document.querySelector("#applyPreview");
+  const applyProgramName = document.querySelector("#applyProgramName");
+  const applyProgramId = document.querySelector("#applyProgramId");
+  const applyProgramCity = document.querySelector("#applyProgramCity");
+  const applySearchInput = document.querySelector("#apply-search");
+  const applySearchTrigger = document.querySelector("[data-apply-search]");
+  const applyTagChips = document.querySelectorAll("[data-apply-tag]");
+
+  const isApplyPage = Boolean(applyStudentForm);
+  const buildApplyMessage = (student, programInfo) => {
+    const lines = [
+      "Hello WorldLight, I want to apply.",
+      "",
+      `Program: ${programInfo.program || ""}`,
+      programInfo.programId ? `Program ID: ${programInfo.programId}` : "",
+      programInfo.city ? `City: ${programInfo.city}` : "",
+      "",
+      `Student full name: ${student.fullName || ""}`,
+      `Nationality: ${student.nationality || ""}`,
+      `Date of birth: ${student.dob || ""}`,
+      `Sex: ${student.sex || ""}`,
+      `Passport no: ${student.passportNo || ""}`,
+      `Passport expiry: ${student.passportExpiry || ""}`,
+      `Highest education: ${student.education || ""}`,
+      `Email: ${student.email || ""}`,
+      `Phone: ${student.phone || ""}`,
+      `WhatsApp/WeChat: ${student.whatsapp || ""}`,
+      `Permanent address: ${student.address || ""}`,
+      `Been to China before: ${student.beenToChina || ""}`,
+      `In China now: ${student.inChinaNow || ""}`,
+    ].filter(Boolean);
+    return lines.join("\n").trim();
+  };
+
+  const setApplyProgramFromQuery = () => {
+    if (!isApplyPage) return { programId: "", program: "", city: "" };
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const programId = params.get("programId") || "";
+      const program = params.get("program") || "";
+      const city = params.get("city") || "";
+      if (applyProgramId) applyProgramId.textContent = programId || "—";
+      if (applyProgramName) applyProgramName.textContent = program || "—";
+      if (applyProgramCity) applyProgramCity.textContent = city || "—";
+      return { programId, program, city };
+    } catch {
+      return { programId: "", program: "", city: "" };
+    }
+  };
+
+  const generateApplyPreview = () => {
+    if (!isApplyPage || !applyStudentForm || !applyPreview) return;
+    const programInfo = setApplyProgramFromQuery();
+    const student = getPayloadFromForm(applyStudentForm);
+    applyPreview.value = buildApplyMessage(student, programInfo);
+
+    if (applySendBtn instanceof HTMLAnchorElement) {
+      const url = new URL(applySendBtn.href, window.location.href);
+      url.searchParams.set("programId", programInfo.programId);
+      if (programInfo.program) url.searchParams.set("program", programInfo.program);
+      if (programInfo.city) url.searchParams.set("city", programInfo.city);
+      // Put the message into the contact box on the homepage.
+      url.searchParams.set("message", applyPreview.value);
+      applySendBtn.href = url.toString();
+    }
+  };
+
+  if (isApplyPage) {
+    // Fill program summary immediately.
+    setApplyProgramFromQuery();
+
+    // Keep preview synced.
+    applyStudentForm.addEventListener("input", generateApplyPreview);
+    generateApplyPreview();
+
+    const goTab = (tab) => {
+      const tabs = document.querySelectorAll(".apply-step");
+      const panels = document.querySelectorAll("[data-panel]");
+      tabs.forEach((b) => {
+        const isActive = b.getAttribute("data-tab") === tab;
+        b.classList.toggle("active", isActive);
+        b.setAttribute("aria-selected", String(isActive));
+        b.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+      panels.forEach((p) => {
+        const isActive = p.getAttribute("data-panel") === tab;
+        p.classList.toggle("active", isActive);
+        p.setAttribute("aria-hidden", String(!isActive));
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    document.querySelectorAll(".apply-step").forEach((btn) => {
+      btn.addEventListener("click", () => goTab(btn.getAttribute("data-tab") || "student"));
+    });
+
+    if (applyNextBtn) {
+      applyNextBtn.addEventListener("click", () => {
+        // Minimal required validation.
+        if (applyStudentForm instanceof HTMLFormElement && !applyStudentForm.reportValidity()) return;
+        generateApplyPreview();
+        goTab("program");
+      });
+    }
+
+    if (applyBackBtn) applyBackBtn.addEventListener("click", () => goTab("student"));
+
+    // Apply page search/tags: quick jump back to scholarships with the same search.
+    const pushToScholarships = (q) => {
+      const text = normalize(q);
+      if (!text) return;
+      const url = new URL("./scholarships.html", window.location.href);
+      url.searchParams.set("q", text);
+      window.location.href = url.toString();
+    };
+
+    if (applySearchInput) {
+      applySearchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          pushToScholarships(applySearchInput.value);
+        }
+      });
+    }
+    if (applySearchTrigger) {
+      applySearchTrigger.addEventListener("click", () => pushToScholarships(applySearchInput?.value || ""));
+    }
+    if (applyTagChips.length) {
+      applyTagChips.forEach((btn) => {
+        btn.addEventListener("click", () => pushToScholarships(btn.getAttribute("data-apply-tag") || ""));
+      });
+    }
+  }
+
+  // --- Topbar language dropdown (UI only for now) ---
+  const langToggle = document.querySelector("[data-lang-toggle]");
+  const langMenu = document.querySelector(".topbar-lang-menu");
+  if (langToggle && langMenu) {
+    const close = () => {
+      langMenu.setAttribute("hidden", "");
+      langToggle.setAttribute("aria-expanded", "false");
+    };
+    const open = () => {
+      langMenu.removeAttribute("hidden");
+      langToggle.setAttribute("aria-expanded", "true");
+    };
+
+    langToggle.addEventListener("click", () => {
+      const isOpen = !langMenu.hasAttribute("hidden");
+      if (isOpen) close();
+      else open();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!(e.target instanceof Node)) return;
+      if (langToggle.contains(e.target) || langMenu.contains(e.target)) return;
+      close();
+    });
+
+    langMenu.querySelectorAll("button[data-lang]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // UI-only selection (no translation yet).
+        langMenu.querySelectorAll("button[data-lang]").forEach((b) => b.setAttribute("aria-selected", "false"));
+        btn.setAttribute("aria-selected", "true");
+        close();
       });
     });
   }

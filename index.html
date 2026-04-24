@@ -23,6 +23,22 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <div class="topbar" aria-label="Utility navigation">
+      <div class="container topbar-inner">
+        <p class="topbar-welcome">Welcome to WorldLight!</p>
+        <div class="topbar-actions" role="navigation" aria-label="Account and quick links">
+          <a href="#contact">Log in</a>
+          <a href="#contact">Sign up</a>
+          <span class="topbar-divider" aria-hidden="true">|</span>
+          <a href="#contact">My Wallet</a>
+          <a href="#contact">My Orders</a>
+          <a href="#contact">Favorites</a>
+          <a href="#contact">Messages</a>
+          <a href="#contact">Vouchers</a>
+        </div>
+      </div>
+    </div>
+
     <header class="site-header" id="top">
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="#top" aria-label="WorldLight Home">
@@ -39,42 +55,210 @@
         </button>
 
         <div class="nav-links" id="nav-links">
+          <a href="#home" aria-current="page">Home</a>
+          <a href="#programs-market">Programs</a>
+          <a href="#partner-universities">Universities</a>
           <a href="#services">Services</a>
-          <a href="#policies">Fees & Policy</a>
           <a href="#process">Process</a>
-          <a href="#intakes">Intakes</a>
-          <a href="./programs.html">Programs</a>
-          <a href="#flyers">Flyers</a>
-          <a href="#video">Student Story</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#faq">FAQ</a>
           <a href="#contact" class="btn btn-small">Apply Now</a>
         </div>
       </nav>
+
+      <div class="search-bar" role="search" aria-label="Program search">
+        <div class="container search-inner">
+          <a class="btn btn-ghost btn-small search-programs" href="#programs-market">Programs</a>
+          <label class="sr-only" for="site-search">Please enter program/university keywords</label>
+          <input
+            id="site-search"
+            class="search-input"
+            type="search"
+            placeholder="Please enter program/university keywords"
+            autocomplete="off"
+          />
+          <button class="btn btn-small search-btn" type="button" data-search-trigger>Search</button>
+          <div class="search-icons" aria-label="Quick actions">
+            <a class="search-icon" href="#contact" aria-label="Cart">Cart</a>
+            <a class="search-icon" href="#contact" aria-label="Top up wallet">Top up wallet</a>
+            <a class="search-icon" href="#contact" aria-label="My">My</a>
+          </div>
+        </div>
+        <div class="container tags-row" aria-label="Popular filters">
+          <button class="tag-chip" type="button" data-filter-tag="new">New</button>
+          <button class="tag-chip" type="button" data-filter-tag="best-seller">Best Seller</button>
+          <button class="tag-chip" type="button" data-filter-tag="high-success">High Success Rate</button>
+          <button class="tag-chip" type="button" data-filter-tag="fast-offer">Fast Offer</button>
+          <button class="tag-chip" type="button" data-filter-tag="full-scholarship">Full Scholarship</button>
+          <button class="tag-chip" type="button" data-filter-tag="free-tuition">Free Tuition</button>
+          <button class="tag-chip" type="button" data-filter-tag="top-ranking">Top Ranking</button>
+          <button class="tag-chip" type="button" data-filter-tag="hot-city">Hot City</button>
+        </div>
+      </div>
     </header>
 
     <main id="main">
-      <section class="hero">
-        <div class="container">
-          <div class="hero-copy">
-            <p class="badge">Scholarship • Admissions • Visa prep</p>
-            <h1>China Scholarship &amp; University Admissions Support</h1>
-            <p class="lead">
-              Illuminating your path to education in China. We connect students with trusted
-              recruitment agents and universities — from eligibility check to admission letter.
-            </p>
-            <div class="hero-cta">
-              <a class="btn" href="#contact">Apply now</a>
-              <a class="btn btn-ghost" href="https://wa.me/8617888227482" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+      <section class="market" id="home">
+        <div class="container market-grid">
+          <aside class="sidebar" aria-label="Programs categories">
+            <h2 class="sidebar-title">Programs</h2>
+            <nav class="sidebar-links">
+              <a href="./program-categories/chinese-language.html">Chinese Language</a>
+              <a href="./program-categories/economics.html">Economics</a>
+              <a href="./program-categories/management.html">Management</a>
+              <a href="./program-categories/engineering.html">Engineering</a>
+              <a href="./program-categories/science.html">Science</a>
+              <a href="./program-categories/medicine.html">Medicine</a>
+              <a href="./program-categories/literature.html">Literature</a>
+              <a href="./program-categories/legal-studies.html">Legal Studies</a>
+              <a href="./program-categories/agriculture.html">Agriculture</a>
+              <a href="./program-categories/foundation-course.html">Foundation Course</a>
+              <a href="./program-categories/fine-arts.html">Fine Arts</a>
+            </nav>
+          </aside>
+
+          <section class="market-main" aria-label="Featured content">
+            <div class="banner" role="region" aria-label="Featured banner">
+              <div class="banner-copy">
+                <p class="badge">Scholarship • Admissions • Visa prep</p>
+                <h1>Join WorldLight — Study in China</h1>
+                <p class="lead">
+                  Search programs, compare universities, and apply with support from our team.
+                </p>
+                <div class="hero-cta">
+                  <a class="btn" href="#contact">Apply now</a>
+                  <a class="btn btn-ghost" href="https://wa.me/8617888227482" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+                </div>
+              </div>
+              <div class="banner-stats" aria-label="Highlights">
+                <div class="banner-stat"><strong>880+</strong><span>Partner universities</span></div>
+                <div class="banner-stat"><strong>10,000+</strong><span>Scholarship seats</span></div>
+                <div class="banner-stat"><strong>9,000+</strong><span>Admissions/year</span></div>
+                <div class="banner-stat"><strong>30,000+</strong><span>Global network</span></div>
+              </div>
             </div>
-            <ul class="trust">
-              <li>✅ Scholarship guidance</li>
-              <li>✅ University matching</li>
-              <li>✅ Document support</li>
-              <li>✅ Visa prep</li>
-              <li>✅ Multiple universities across China</li>
-            </ul>
-          </div>
+
+            <div class="market-row" id="programs-market">
+              <div class="row-head">
+                <h2>Programs</h2>
+                <p class="muted">Browse categories and featured opportunities.</p>
+              </div>
+              <div class="list-grid" role="list" aria-label="Program quick categories">
+                <a class="list-item" role="listitem" href="./program-categories/chinese-language.html">Chinese Language</a>
+                <a class="list-item" role="listitem" href="./program-categories/engineering.html">Engineering</a>
+                <a class="list-item" role="listitem" href="./program-categories/medicine.html">MBBS / Medicine</a>
+                <a class="list-item" role="listitem" href="./program-categories/management.html">MBA / Management</a>
+                <a class="list-item" role="listitem" href="./program-categories/science.html">Computer Science</a>
+                <a class="list-item" role="listitem" href="./program-categories/engineering.html">Civil Engineering</a>
+              </div>
+            </div>
+
+            <div class="stats-strip" aria-label="Successful cases">
+              <div class="stat">
+                <strong>8,500+</strong>
+                <span>Recent applications</span>
+              </div>
+              <div class="stat">
+                <strong>6,300+</strong>
+                <span>Recent admissions</span>
+              </div>
+              <div class="stat">
+                <strong>880+</strong>
+                <span>Partner universities</span>
+              </div>
+              <div class="stat">
+                <strong>30,000+</strong>
+                <span>International agents</span>
+              </div>
+              <a class="btn btn-small" href="#contact">Apply to be an agent</a>
+            </div>
+
+            <section class="market-row" id="partner-universities" aria-label="Partner universities">
+              <div class="row-head row-head-split">
+                <div>
+                  <h2>Partner Universities</h2>
+                  <p class="muted">A few examples from our partner network.</p>
+                </div>
+                <a class="btn btn-ghost btn-small" href="#contact">All</a>
+              </div>
+              <div class="cards uni-cards">
+                <article class="card uni-card">
+                  <img class="uni-img" src="./thumbnails/train-to-university.jpg" alt="Campus view" loading="lazy" />
+                  <h3>Guangdong University of Science and Technology</h3>
+                  <p class="muted">City: Dongguan</p>
+                </article>
+                <article class="card uni-card">
+                  <img class="uni-img" src="./thumbnails/airport-pickup-1.jpg" alt="University building" loading="lazy" />
+                  <h3>Gannan Normal University</h3>
+                  <p class="muted">City: Ganzhou</p>
+                </article>
+                <article class="card uni-card">
+                  <img class="uni-img" src="./thumbnails/guangzhou-airport-flight.jpg" alt="Beijing city" loading="lazy" />
+                  <h3>Beijing Institute of Graphic Communication</h3>
+                  <p class="muted">City: Beijing</p>
+                </article>
+                <article class="card uni-card">
+                  <img class="uni-img" src="./thumbnails/student-testimony.jpg" alt="University exterior" loading="lazy" />
+                  <h3>North China University of Water Resources and Electric Power</h3>
+                  <p class="muted">City: Zhengzhou</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="market-row" aria-label="Recommended programs">
+              <div class="row-head">
+                <h2>Recommended programs</h2>
+                <p class="muted">Example cards — we can add more as you provide details.</p>
+              </div>
+              <div class="cards program-cards">
+                <article class="card program-tile" data-search-item>
+                  <p class="program-tags">Full Scholarship • Hot City</p>
+                  <h3>Mechanical Engineering</h3>
+                  <dl class="mini-meta">
+                    <dt>Program ID</dt><dd>AME2511250008</dd>
+                    <dt>City</dt><dd>Qinhuangdao, Hebei</dd>
+                    <dt>Degree</dt><dd>Master</dd>
+                    <dt>Language</dt><dd>English</dd>
+                  </dl>
+                </article>
+                <article class="card program-tile" data-search-item>
+                  <p class="program-tags">Full Scholarship • Fast Offer</p>
+                  <h3>Electrical Engineering</h3>
+                  <dl class="mini-meta">
+                    <dt>Program ID</dt><dd>AME2511250012</dd>
+                    <dt>City</dt><dd>Qinhuangdao, Hebei</dd>
+                    <dt>Degree</dt><dd>Master</dd>
+                    <dt>Language</dt><dd>English</dd>
+                  </dl>
+                </article>
+                <article class="card program-tile" data-search-item>
+                  <p class="program-tags">Full Scholarship • Top Ranking</p>
+                  <h3>Computer Science and Technology</h3>
+                  <dl class="mini-meta">
+                    <dt>Program ID</dt><dd>AME2511250016</dd>
+                    <dt>City</dt><dd>Qinhuangdao, Hebei</dd>
+                    <dt>Degree</dt><dd>Master</dd>
+                    <dt>Language</dt><dd>English</dd>
+                  </dl>
+                </article>
+              </div>
+
+              <div class="callout" style="margin-top: 14px;">
+                <div>
+                  <h3>Want a program recommendation?</h3>
+                  <p class="muted">Send your level + major and we’ll suggest options.</p>
+                </div>
+                <a class="btn btn-small" href="#contact">Apply / Contact</a>
+              </div>
+            </section>
+          </section>
+
+          <aside class="market-side" aria-label="You may like">
+            <div class="side-card">
+              <h2 class="side-title">You may like</h2>
+              <a class="side-link" href="./program-categories/science.html">Computer Science and Technology</a>
+              <a class="side-link" href="./program-categories/engineering.html">Biomedical Engineering</a>
+              <a class="side-link" href="./program-categories/literature.html">English Translation & Writing</a>
+            </div>
+          </aside>
         </div>
       </section>
 

@@ -37,6 +37,38 @@
     window.location.href = url;
   };
 
+  // --- Homepage search (static, client-side) ---
+  const searchInput = $("#site-search");
+  const searchBtn = document.querySelector("[data-search-trigger]");
+
+  const normalize = (s) => String(s || "").toLowerCase().trim();
+
+  const applyHomepageSearch = () => {
+    if (!searchInput) return;
+    const q = normalize(searchInput.value);
+
+    const cards = document.querySelectorAll(
+      ".uni-card, .program-tile, [data-search-item]"
+    );
+
+    cards.forEach((card) => {
+      const text = normalize(card.textContent || "");
+      const show = !q || text.includes(q);
+      card.style.display = show ? "" : "none";
+    });
+  };
+
+  if (searchInput) {
+    searchInput.addEventListener("input", applyHomepageSearch);
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyHomepageSearch();
+    });
+  }
+
+  if (searchBtn) {
+    searchBtn.addEventListener("click", applyHomepageSearch);
+  }
+
   // --- Flyers: render from manifest.json so adding flyers is easy ---
   const flyerGrid = $("#flyer-grid");
   const flyerFilterBar = document.querySelector(".flyer-filters");

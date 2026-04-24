@@ -254,6 +254,31 @@
   // Initial render for universities page
   if (uniHistoryEl) renderUniHistory();
 
+  // --- Generic tabs (used on university detail pages) ---
+  const tabButtons = document.querySelectorAll("[data-tab]");
+  const tabPanels = document.querySelectorAll("[data-panel]");
+
+  if (tabButtons.length && tabPanels.length) {
+    const setActiveTab = (tab) => {
+      tabButtons.forEach((b) => {
+        const isActive = b.getAttribute("data-tab") === tab;
+        b.classList.toggle("active", isActive);
+        b.setAttribute("aria-selected", String(isActive));
+      });
+      tabPanels.forEach((p) => {
+        const isActive = p.getAttribute("data-panel") === tab;
+        p.classList.toggle("active", isActive);
+      });
+    };
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tab = btn.getAttribute("data-tab") || "";
+        if (tab) setActiveTab(tab);
+      });
+    });
+  }
+
   // --- Flyers: render from manifest.json so adding flyers is easy ---
   const flyerGrid = $("#flyer-grid");
   const flyerFilterBar = document.querySelector(".flyer-filters");

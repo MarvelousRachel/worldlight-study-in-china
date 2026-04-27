@@ -747,6 +747,8 @@
   const langToggle = document.querySelector("[data-lang-toggle]");
   const langMenu = document.querySelector(".topbar-lang-menu");
   if (langToggle && langMenu) {
+    const LANG_KEY = "worldlight_lang_v1";
+
     const close = () => {
       langMenu.setAttribute("hidden", "");
       langToggle.setAttribute("aria-expanded", "false");
@@ -755,6 +757,47 @@
       langMenu.removeAttribute("hidden");
       langToggle.setAttribute("aria-expanded", "true");
     };
+
+    const getLabelForValue = (value) => {
+      const v = String(value || "").toLowerCase();
+      if (v === "fr") return "Français";
+      if (v === "zh") return "中文";
+      return "English";
+    };
+
+    const setToggleLabel = (value) => {
+      const label = getLabelForValue(value);
+      const labelEl = langToggle.querySelector(".topbar-lang-label");
+      if (labelEl) labelEl.textContent = label;
+      else langToggle.textContent = `${label} \u25BC`;
+    };
+
+    const setSelected = (value) => {
+      const v = String(value || "").toLowerCase();
+      langMenu.querySelectorAll("button[data-lang]").forEach((b) => {
+        const isSelected = String(b.getAttribute("data-lang") || "").toLowerCase() === v;
+        b.setAttribute("aria-selected", isSelected ? "true" : "false");
+      });
+      setToggleLabel(v);
+      try {
+        localStorage.setItem(LANG_KEY, v);
+      } catch {
+        // ignore
+      }
+    };
+
+    // Init from storage (fallback to current aria-selected)
+    try {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved) setSelected(saved);
+      else {
+        const current = langMenu.querySelector('button[data-lang][aria-selected="true"]')?.getAttribute("data-lang") || "en";
+        setToggleLabel(current);
+      }
+    } catch {
+      const current = langMenu.querySelector('button[data-lang][aria-selected="true"]')?.getAttribute("data-lang") || "en";
+      setToggleLabel(current);
+    }
 
     langToggle.addEventListener("click", () => {
       const isOpen = !langMenu.hasAttribute("hidden");
@@ -768,11 +811,15 @@
       close();
     });
 
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      close();
+    });
+
     langMenu.querySelectorAll("button[data-lang]").forEach((btn) => {
       btn.addEventListener("click", () => {
         // UI-only selection (no translation yet).
-        langMenu.querySelectorAll("button[data-lang]").forEach((b) => b.setAttribute("aria-selected", "false"));
-        btn.setAttribute("aria-selected", "true");
+        setSelected(btn.getAttribute("data-lang") || "en");
         close();
       });
     });

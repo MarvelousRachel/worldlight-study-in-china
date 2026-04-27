@@ -594,6 +594,25 @@ a:hover {
   margin-top: 12px;
 }
 
+/* Reduce “empty space” perception on bigger screens */
+@media (min-width: 1100px) {
+  .market {
+    padding: 14px 0 10px;
+  }
+
+  .market-grid {
+    gap: 16px;
+  }
+
+  .cards {
+    gap: 12px;
+  }
+
+  .row-head {
+    gap: 2px;
+  }
+}
+
 .row-head {
   display: grid;
   gap: 4px;
@@ -1447,6 +1466,28 @@ h1 {
 
 .card h3 {
   margin: 0 0 8px;
+}
+
+/* Home “Recommended programs”: make cards read bigger */
+.program-cards .card h3 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.program-cards .mini-meta {
+  font-size: 1.05rem;
+}
+
+.program-cards .program-tags {
+  font-size: 1.05rem;
+}
+
+.callout h3 {
+  font-size: 1.4rem;
+}
+
+.callout p {
+  font-size: 1.05rem;
 }
 
 .card p {

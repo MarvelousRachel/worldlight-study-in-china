@@ -73,17 +73,12 @@
                 <label class="muted" for="prog-degree" style="display:block; margin-bottom: 8px">Degree</label>
                 <select id="prog-degree" class="input">
                   <option value="">All</option>
-                  <option>Master</option>
-                  <option>Bachelor</option>
-                  <option>Non-degree (5 years)</option>
                 </select>
               </div>
               <div>
                 <label class="muted" for="prog-language" style="display:block; margin-bottom: 8px">Language</label>
                 <select id="prog-language" class="input">
                   <option value="">All</option>
-                  <option>English</option>
-                  <option>Chinese</option>
                 </select>
               </div>
             </div>
@@ -93,16 +88,12 @@
                 <label class="muted" for="prog-type" style="display:block; margin-bottom: 8px">Scholarship type</label>
                 <select id="prog-type" class="input">
                   <option value="">All</option>
-                  <option>Type A</option>
-                  <option>Type B</option>
-                  <option>Type C</option>
                 </select>
               </div>
               <div>
                 <label class="muted" for="prog-intake" style="display:block; margin-bottom: 8px">Intake</label>
                 <select id="prog-intake" class="input">
                   <option value="">All</option>
-                  <option>2026 Autumn</option>
                 </select>
               </div>
             </div>
@@ -111,9 +102,6 @@
               <label class="muted" for="prog-category" style="display:block; margin-bottom: 8px">Category / Field</label>
               <select id="prog-category" class="input">
                 <option value="">All</option>
-                <option>Engineering</option>
-                <option>Management</option>
-                <option>Foundation Course</option>
               </select>
             </div>
 
@@ -258,25 +246,33 @@
 
         const uniqueSorted = (arr) => Array.from(new Set(arr.filter(Boolean))).sort((a, b) => String(a).localeCompare(String(b)));
 
-        const populateCityOptions = () => {
-          if (!cityEl) return;
-          // Rebuild options but keep current selection.
-          const current = String(cityEl.value || "");
-          cityEl.innerHTML = "";
+        const populateSelect = (selectEl, values) => {
+          if (!selectEl) return;
+          const current = String(selectEl.value || "");
+          selectEl.innerHTML = "";
 
           const base = document.createElement("option");
           base.value = "";
           base.textContent = "All";
-          cityEl.appendChild(base);
+          selectEl.appendChild(base);
 
-          uniqueSorted(list.map((p) => p.city)).forEach((c) => {
+          uniqueSorted(values).forEach((v) => {
             const opt = document.createElement("option");
-            opt.value = c;
-            opt.textContent = c;
-            cityEl.appendChild(opt);
+            opt.value = v;
+            opt.textContent = v;
+            selectEl.appendChild(opt);
           });
 
-          cityEl.value = current;
+          selectEl.value = current;
+        };
+
+        const populateFiltersFromDataset = () => {
+          populateSelect(cityEl, list.map((p) => p.city));
+          populateSelect(degreeEl, list.map((p) => p.degree));
+          populateSelect(langEl, list.map((p) => p.language));
+          populateSelect(typeEl, list.map((p) => p.scholarshipType).filter((x) => String(x || "").trim()));
+          populateSelect(intakeEl, list.map((p) => p.intake).filter((x) => String(x || "").trim()));
+          populateSelect(categoryEl, list.map((p) => p.category).filter((x) => String(x || "").trim()));
         };
 
         const getState = () => {
@@ -338,7 +334,7 @@
         }
 
   // Initial render
-  populateCityOptions();
+  populateFiltersFromDataset();
   render(list);
       })();
     </script>

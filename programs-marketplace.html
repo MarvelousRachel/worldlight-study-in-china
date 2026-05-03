@@ -62,7 +62,9 @@
               </div>
               <div>
                 <label class="muted" for="prog-city" style="display:block; margin-bottom: 8px">City</label>
-                <input id="prog-city" class="input" type="search" placeholder="Example: Qinhuangdao" autocomplete="off" />
+                <select id="prog-city" class="input">
+                  <option value="">All</option>
+                </select>
               </div>
             </div>
 
@@ -254,6 +256,29 @@
           if (countEl) countEl.textContent = `${items.length} program${items.length === 1 ? "" : "s"}`;
         };
 
+        const uniqueSorted = (arr) => Array.from(new Set(arr.filter(Boolean))).sort((a, b) => String(a).localeCompare(String(b)));
+
+        const populateCityOptions = () => {
+          if (!cityEl) return;
+          // Rebuild options but keep current selection.
+          const current = String(cityEl.value || "");
+          cityEl.innerHTML = "";
+
+          const base = document.createElement("option");
+          base.value = "";
+          base.textContent = "All";
+          cityEl.appendChild(base);
+
+          uniqueSorted(list.map((p) => p.city)).forEach((c) => {
+            const opt = document.createElement("option");
+            opt.value = c;
+            opt.textContent = c;
+            cityEl.appendChild(opt);
+          });
+
+          cityEl.value = current;
+        };
+
         const getState = () => {
           return {
             q: normalize(qEl?.value || ""),
@@ -273,7 +298,7 @@
           const items = list.filter((p) => {
             const hay = normalize([p.name, p.id, p.city, p.degree, p.language, p.category, ...(p.tags || []), p.scholarshipType].join(" "));
             const matchesQ = !q || hay.includes(q);
-            const matchesCity = !city || normalize(p.city).includes(city);
+            const matchesCity = !city || String(p.city || "") === city;
             const matchesDegree = !degree || String(p.degree) === degree;
             const matchesLang = !language || String(p.language) === language;
             const matchesType = !type || String(p.scholarshipType || "") === type;
@@ -287,8 +312,9 @@
         };
 
         // Wire inputs
-        [qEl, cityEl].forEach((el) => el && el.addEventListener("input", applyFilters));
+  if (qEl) qEl.addEventListener("input", applyFilters);
   [degreeEl, langEl, typeEl, intakeEl, categoryEl].forEach((el) => el && el.addEventListener("change", applyFilters));
+  if (cityEl) cityEl.addEventListener("change", applyFilters);
 
         document.querySelectorAll("button[data-prog-tag]").forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -311,8 +337,9 @@
           });
         }
 
-        // Initial render
-        render(list);
+  // Initial render
+  populateCityOptions();
+  render(list);
       })();
     </script>
     <script src="./script.js"></script>

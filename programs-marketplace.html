@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programs Marketplace — WorldLight</title>
+    <meta name="description" content="Browse programs with search and filters." />
+
+    <meta name="theme-color" content="#0b5fff" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="./index.html" aria-label="WorldLight Home">
+          <img class="brand-logo" src="./flyers/Logo.jpg" alt="WorldLight logo" width="40" height="40" loading="eager" decoding="async" />
+          <span class="brand-text">
+            <span class="brand-name">WorldLight</span>
+            <span class="brand-tag">Study in China</span>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          <span aria-hidden="true">☰</span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+          <a href="./index.html#services">Services</a>
+          <a href="./index.html#process">Process</a>
+          <a href="./index.html#intakes">Intakes</a>
+          <a href="./programs-marketplace.html" aria-current="page">Programs</a>
+          <a href="./scholarships.html">Scholarships</a>
+          <a href="./universities.html">Universities</a>
+          <a href="./index.html#contact" class="btn btn-small">Apply Now</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h1 style="margin: 0; font-size: clamp(2rem, 3vw, 2.6rem)">Programs Marketplace</h1>
+            <p class="muted" style="max-width: 72ch">
+              Search and filter programs, then open the detail page to apply. Favorites (★) are saved on your device.
+            </p>
+          </div>
+
+          <div class="card" style="padding: 16px; margin-top: 14px">
+            <div class="grid-2" style="gap: 14px">
+              <div>
+                <label class="muted" for="prog-q" style="display:block; margin-bottom: 8px">Program / University keywords</label>
+                <input id="prog-q" class="input" type="search" placeholder="Example: engineering, mba, yueyang..." autocomplete="off" />
+              </div>
+              <div>
+                <label class="muted" for="prog-city" style="display:block; margin-bottom: 8px">City</label>
+                <input id="prog-city" class="input" type="search" placeholder="Example: Qinhuangdao" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="grid-2" style="gap: 14px; margin-top: 12px">
+              <div>
+                <label class="muted" for="prog-degree" style="display:block; margin-bottom: 8px">Degree</label>
+                <select id="prog-degree" class="input">
+                  <option value="">All</option>
+                  <option>Master</option>
+                  <option>Bachelor</option>
+                  <option>Non-degree (5 years)</option>
+                </select>
+              </div>
+              <div>
+                <label class="muted" for="prog-language" style="display:block; margin-bottom: 8px">Language</label>
+                <select id="prog-language" class="input">
+                  <option value="">All</option>
+                  <option>English</option>
+                  <option>Chinese</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-top: 12px; display:flex; gap: 10px; flex-wrap: wrap; align-items: center">
+              <span class="muted" style="font-weight: 700">Quick tags:</span>
+              <button class="chip" type="button" data-prog-tag="Full Scholarship">Full Scholarship</button>
+              <button class="chip" type="button" data-prog-tag="Fast Offer">Fast Offer</button>
+              <button class="chip" type="button" data-prog-tag="Hot City">Hot City</button>
+              <button class="chip" type="button" data-prog-tag="Best Seller">Best Seller</button>
+              <button class="chip" type="button" data-prog-tag="Chinese Language">Chinese Language</button>
+              <button class="btn btn-ghost btn-small" type="button" id="prog-clear">Clear</button>
+              <span class="muted" id="prog-count" style="margin-left:auto">0 programs</span>
+            </div>
+          </div>
+
+          <section style="margin-top: 16px">
+            <div class="cards program-cards" id="prog-results" aria-live="polite"></div>
+          </section>
+
+          <div class="callout" style="margin-top: 16px">
+            <div>
+              <h3>Can’t find your program?</h3>
+              <p class="muted">Send your level + major and we’ll add matching programs.</p>
+            </div>
+            <a class="btn btn-small" href="./index.html#contact">Apply / Contact</a>
+          </div>
+
+          <p style="margin-top: 18px">
+            <a class="btn btn-ghost" href="./index.html">← Back to Home</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./data/programs-data.js"></script>
+    <script>
+      (() => {
+        const $ = (sel) => document.querySelector(sel);
+        const normalize = (s) => String(s || "").toLowerCase().trim();
+
+        const list = Array.isArray(window.WORLDLIGHT_PROGRAMS) ? window.WORLDLIGHT_PROGRAMS : [];
+
+        const qEl = $("#prog-q");
+        const cityEl = $("#prog-city");
+        const degreeEl = $("#prog-degree");
+        const langEl = $("#prog-language");
+        const resultsEl = $("#prog-results");
+        const countEl = $("#prog-count");
+        const clearEl = $("#prog-clear");
+
+        const FAV_KEY = "worldlight_favorite_programs_v1";
+        const readFavorites = () => {
+          try {
+            const raw = localStorage.getItem(FAV_KEY);
+            const arr = raw ? JSON.parse(raw) : [];
+            return Array.isArray(arr) ? arr : [];
+          } catch {
+            return [];
+          }
+        };
+        const isFavorited = (id) => readFavorites().some((x) => String(x.programId || "") === String(id));
+
+        const render = (items) => {
+          if (!resultsEl) return;
+          resultsEl.innerHTML = "";
+
+          if (!items.length) {
+            const empty = document.createElement("p");
+            empty.className = "muted";
+            empty.textContent = "No programs match your filters yet.";
+            resultsEl.appendChild(empty);
+            if (countEl) countEl.textContent = "0 programs";
+            return;
+          }
+
+          items.forEach((p) => {
+            const card = document.createElement("article");
+            card.className = "card program-tile";
+            card.setAttribute("data-search-item", "");
+
+            const tags = document.createElement("p");
+            tags.className = "program-tags";
+            const tagText = [p.scholarshipType ? String(p.scholarshipType) : "", ...(Array.isArray(p.tags) ? p.tags : [])]
+              .filter(Boolean)
+              .join(" • ");
+            tags.textContent = tagText || "Program";
+
+            const title = document.createElement("h3");
+            const a = document.createElement("a");
+            a.href = p.detailUrl || "./programs.html";
+            a.textContent = p.name || p.id;
+            title.appendChild(a);
+
+            const meta = document.createElement("dl");
+            meta.className = "mini-meta";
+            meta.innerHTML = `
+              <dt>Program ID</dt><dd>${p.id || ""}</dd>
+              <dt>City</dt><dd>${p.city || ""}</dd>
+              <dt>Degree</dt><dd>${p.degree || ""}</dd>
+              <dt>Language</dt><dd>${p.language || ""}</dd>
+            `;
+
+            const actions = document.createElement("div");
+            actions.className = "apply-actions";
+            actions.style.marginTop = "12px";
+
+            const fav = document.createElement("button");
+            fav.className = "btn btn-ghost btn-small";
+            fav.type = "button";
+            fav.setAttribute("data-fav-toggle", "");
+            fav.setAttribute("data-program-id", p.id || "");
+            fav.setAttribute("data-program-name", p.name || "");
+            fav.setAttribute("data-program-city", p.city || "");
+            fav.setAttribute("data-program-detail", p.detailUrl || "");
+            fav.textContent = isFavorited(p.id) ? "★" : "☆";
+
+            const apply = document.createElement("a");
+            apply.className = "btn btn-small";
+            apply.textContent = "Apply";
+            const u = new URL("./apply.html", window.location.href);
+            if (p.id) u.searchParams.set("programId", p.id);
+            if (p.name) u.searchParams.set("program", p.name);
+            if (p.city) u.searchParams.set("city", p.city);
+            apply.href = u.toString();
+
+            actions.appendChild(fav);
+            actions.appendChild(apply);
+
+            card.appendChild(tags);
+            card.appendChild(title);
+            card.appendChild(meta);
+            card.appendChild(actions);
+
+            resultsEl.appendChild(card);
+          });
+
+          if (countEl) countEl.textContent = `${items.length} program${items.length === 1 ? "" : "s"}`;
+        };
+
+        const getState = () => {
+          return {
+            q: normalize(qEl?.value || ""),
+            city: normalize(cityEl?.value || ""),
+            degree: String(degreeEl?.value || "").trim(),
+            language: String(langEl?.value || "").trim(),
+            tag: normalize(document.body.getAttribute("data-prog-tag") || ""),
+          };
+        };
+
+        const applyFilters = () => {
+          const { q, city, degree, language, tag } = getState();
+
+          const items = list.filter((p) => {
+            const hay = normalize([p.name, p.id, p.city, p.degree, p.language, p.category, ...(p.tags || []), p.scholarshipType].join(" "));
+            const matchesQ = !q || hay.includes(q);
+            const matchesCity = !city || normalize(p.city).includes(city);
+            const matchesDegree = !degree || String(p.degree) === degree;
+            const matchesLang = !language || String(p.language) === language;
+            const matchesTag = !tag || normalize((p.tags || []).join(" ")).includes(tag) || normalize(p.scholarshipType || "").includes(tag);
+            return matchesQ && matchesCity && matchesDegree && matchesLang && matchesTag;
+          });
+
+          render(items);
+        };
+
+        // Wire inputs
+        [qEl, cityEl].forEach((el) => el && el.addEventListener("input", applyFilters));
+        [degreeEl, langEl].forEach((el) => el && el.addEventListener("change", applyFilters));
+
+        document.querySelectorAll("button[data-prog-tag]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.body.setAttribute("data-prog-tag", btn.getAttribute("data-prog-tag") || "");
+            applyFilters();
+          });
+        });
+
+        if (clearEl) {
+          clearEl.addEventListener("click", () => {
+            if (qEl) qEl.value = "";
+            if (cityEl) cityEl.value = "";
+            if (degreeEl) degreeEl.value = "";
+            if (langEl) langEl.value = "";
+            document.body.removeAttribute("data-prog-tag");
+            applyFilters();
+          });
+        }
+
+        // Initial render
+        render(list);
+      })();
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>

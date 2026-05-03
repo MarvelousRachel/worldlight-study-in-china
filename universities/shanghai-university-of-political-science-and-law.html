@@ -93,6 +93,7 @@
             <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="intro">Introduction</button>
             <button class="tab" type="button" role="tab" aria-selected="false" data-tab="advantages">Advantages</button>
             <button class="tab" type="button" role="tab" aria-selected="false" data-tab="albums">Albums</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="video">Promotional video</button>
           </div>
 
           <section class="tab-panel active" role="tabpanel" data-panel="intro">
@@ -114,10 +115,38 @@
           </section>
 
           <section class="tab-panel" role="tabpanel" data-panel="albums">
-            <div class="cards">
-              <article class="card"><img class="uni-img" src="../thumbnails/train-to-university.jpg" alt="Campus" loading="lazy" /></article>
-              <article class="card"><img class="uni-img" src="../thumbnails/airport-pickup-1.jpg" alt="Students" loading="lazy" /></article>
-              <article class="card"><img class="uni-img" src="../thumbnails/guangzhou-airport-flight.jpg" alt="City" loading="lazy" /></article>
+            <div class="card">
+              <h2 style="margin-top: 0">Albums</h2>
+              <p class="muted" style="margin-top: 0">
+                Replace these with real university photos in <code>assets/media/universities/</code>.
+              </p>
+
+              <div class="gallery" aria-label="Shanghai University of Political Science and Law gallery">
+                <figure>
+                  <img class="uni-img" src="../thumbnails/train-to-university.jpg" alt="Campus" loading="lazy" decoding="async" />
+                  <figcaption>Campus view (replace)</figcaption>
+                </figure>
+                <figure>
+                  <img class="uni-img" src="../thumbnails/airport-pickup-1.jpg" alt="Students" loading="lazy" decoding="async" />
+                  <figcaption>Student life (replace)</figcaption>
+                </figure>
+                <figure>
+                  <img class="uni-img" src="../thumbnails/guangzhou-airport-flight.jpg" alt="City" loading="lazy" decoding="async" />
+                  <figcaption>City vibes (replace)</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" role="tabpanel" id="tab-video" data-panel="video">
+            <div class="card">
+              <h2 style="margin-top: 0">Promotional video</h2>
+              <p class="muted" style="margin-top: 0">Add the university promotional video when available.</p>
+              <div class="video-embed">
+                <video controls preload="metadata" style="width: 100%; border-radius: 14px; border: 1px solid var(--line);">
+                  <source src="../084ab5ead8fe8af7fb6c76edcc02aef8.mp4" type="video/mp4" />
+                </video>
+              </div>
             </div>
           </section>
 

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f4dff" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#f97316" stop-opacity="0.18" />
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f4dff" />
+      <stop offset="1" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ffffff" />
+  <rect width="1600" height="900" fill="url(#g)" />
+
+  <circle cx="260" cy="220" r="170" fill="#1f4dff" fill-opacity="0.12" />
+  <circle cx="1380" cy="160" r="210" fill="#f97316" fill-opacity="0.14" />
+  <circle cx="1260" cy="760" r="260" fill="#1f4dff" fill-opacity="0.10" />
+
+  <rect x="120" y="140" width="1360" height="620" rx="28" fill="#ffffff" fill-opacity="0.75" />
+  <rect x="120" y="140" width="1360" height="10" fill="url(#g2)" />
+
+  <text x="170" y="260" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="64" font-weight="800" fill="#0a1024" fill-opacity="0.92">
+    WorldLight Study in China
+  </text>
+  <text x="170" y="332" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="34" font-weight="600" fill="#0a1024" fill-opacity="0.72">
+    Placeholder hero media — replace with real campus photos/videos
+  </text>
+
+  <g transform="translate(170,420)">
+    <rect width="520" height="260" rx="24" fill="#1f4dff" fill-opacity="0.10" stroke="#1f4dff" stroke-opacity="0.16" />
+    <text x="34" y="90" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28" font-weight="800" fill="#0a1024" fill-opacity="0.90">
+      Scholarships • Admissions • Visa prep
+    </text>
+    <text x="34" y="140" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" font-weight="600" fill="#0a1024" fill-opacity="0.70">
+      Add your real images in: assets/media/
+    </text>
+    <text x="34" y="176" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" font-weight="600" fill="#0a1024" fill-opacity="0.70">
+      and update the page paths.
+    </text>
+  </g>
+
+  <g transform="translate(730,420)">
+    <rect width="680" height="260" rx="24" fill="#f97316" fill-opacity="0.10" stroke="#f97316" stroke-opacity="0.16" />
+    <text x="34" y="90" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28" font-weight="800" fill="#0a1024" fill-opacity="0.90">
+      Good-looking layout now
+    </text>
+    <text x="34" y="140" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" font-weight="600" fill="#0a1024" fill-opacity="0.70">
+      This placeholder keeps the UI polished
+    </text>
+    <text x="34" y="176" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="22" font-weight="600" fill="#0a1024" fill-opacity="0.70">
+      until you upload real media.
+    </text>
+  </g>
+</svg>
